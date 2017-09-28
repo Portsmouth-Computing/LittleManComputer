@@ -9,4 +9,5 @@
 |Subtract|SUB| 2xx|
 |Input| INP| 901|
 |Output| OUT| 902|
-|
+|END| HLT|000|
+s

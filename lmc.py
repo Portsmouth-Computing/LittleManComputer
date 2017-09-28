@@ -63,7 +63,7 @@ class LittleManComputer():
             self.accumulator = int(input("Enter input: "))
             
         def lmcOutput():
-            print ("Output:", self.accumulator)
+            print("Output:", self.accumulator)
 
         def lmcBranchAlways():
             self.progCounter = self.addressRegister
@@ -85,8 +85,8 @@ class LittleManComputer():
             instr   = str(self.memory[self.progCounter])
             if int(instr) == 0:
                 break
-            
-            opcode  = instr[0]
+
+            opcode = instr[0]
 
             if len(instr) == 3:
                 address = instr[1] + instr[2]
@@ -94,11 +94,11 @@ class LittleManComputer():
                 address = instr[1]
 
             self.progCounter += 1
-            
+
             #push to registers
             self.instructionRegister = int(opcode)
             self.addressRegister     = int(address)
-            
+
             #interpret
             if self.instructionRegister == 1:
                 lmcAdd()
