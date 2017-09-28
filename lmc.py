@@ -22,11 +22,7 @@ class LittleManComputer():
             words = line.split(" ")
             instruction = words[0]
             if instruction == "LDA":
-<<<<<<< HEAD
-                load_instruction(5, words[1], instruction_Ptr)
-=======
                 load_instruction(5, words[1], instruction_ptr)
->>>>>>> 686e991d38532faa5a980d8d676561bae0c908de
             elif instruction == "STA":
                 load_instruction(3, words[1], instruction_ptr)
             elif instruction == "ADD":
@@ -44,13 +40,9 @@ class LittleManComputer():
             elif instruction == "BRZ": 
                 load_instruction(7, words[1], instruction_ptr)
             elif instruction == "BRP": 
-<<<<<<< HEAD
-                load_instruction(8, words[1], instruction_Ptr)
-=======
                 load_instruction(8, words[1], instruction_ptr)
->>>>>>> 686e991d38532faa5a980d8d676561bae0c908de
-
             instruction_ptr += 1
+            
         in_file.close()
     
     def run(self):
