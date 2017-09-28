@@ -1,4 +1,5 @@
 class LittleManComputer():
+    """LMC""" 
     def __init__(self):
         self.memory                 = [] 
         self.progCounter            = 0
@@ -9,31 +10,32 @@ class LittleManComputer():
             self.memory.append(0)
     
     def loadInstructions(self):
+        """Loads Instructions Into File"""
         def loadInstruction(op, strAddress, location):
             op = str(op)
             op += strAddress
             self.memory[location] = int(op)
         
         inFile = open("instructions.txt")
-        instructionPtr = 0
+        instruction_Ptr = 0
         for line in inFile:
             words = line.split(" ")
             instruction = words[0]
-            if (instruction == "LDA"):
-                loadInstruction(5, words[1], instructionPtr)
-            elif(instruction == "STA"):
-                loadInstruction(3, words[1], instructionPtr)
-            elif (instruction == "ADD"):
-                loadInstruction(1, words[1], instructionPtr)
-            elif (instruction == "SUB"):
-                loadInstruction(2, words[1], instructionPtr)
-            elif (instruction == "INP\n"):
-                loadInstruction(9, "01", instructionPtr)
-            elif (instruction == "OUT\n"):
-                loadInstruction(9, "02", instructionPtr)
-            elif (instruction == "HTL\n"): 
-                loadInstruction(0, "00", instructionPtr)
-            instructionPtr += 1
+            if instruction == "LDA":
+                loadInstruction(5, words[1], instruction_Ptr)
+            elif instruction == "STA":
+                loadInstruction(3, words[1], instruction_Ptr)
+            elif instruction == "ADD":
+                loadInstruction(1, words[1], instruction_Ptr)
+            elif instruction == "SUB":
+                loadInstruction(2, words[1], instruction_Ptr)
+            elif instruction == "INP\n":
+                loadInstruction(9, "01", instruction_Ptr)
+            elif instruction == "OUT\n":
+                loadInstruction(9, "02", instruction_Ptr)
+            elif instruction == "HTL\n":
+                loadInstruction(0, "00", instruction_Ptr)
+            instruction_Ptr += 1
         inFile.close()
     
     def run(self):
