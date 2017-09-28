@@ -22,47 +22,25 @@ class LittleManComputer():
             words = line.split(" ")
             instruction = words[0]
             if instruction == "LDA":
-<<<<<<< HEAD
-                load_instruction(5, words[1], instruction_Ptr)
+                load_instruction(5, words[1], instruction_ptr)
             elif instruction == "STA":
-                load_instruction(3, words[1], instruction_Ptr)
+                load_instruction(3, words[1], instruction_ptr)
             elif instruction == "ADD":
-                load_instruction(1, words[1], instruction_Ptr)
+                load_instruction(1, words[1], instruction_ptr)
             elif instruction == "SUB":
-                load_instruction(2, words[1], instruction_Ptr)
+                load_instruction(2, words[1], instruction_ptr)
             elif instruction == "INP\n":
-                load_instruction(9, "01", instruction_Ptr)
+                load_instruction(9, "01", instruction_ptr)
             elif instruction == "OUT\n":
-                load_instruction(9, "02", instruction_Ptr)
+                load_instruction(9, "02", instruction_ptr)
             elif instruction == "HTL\n":
-                load_instruction(0, "00", instruction_Ptr)
+                load_instruction(0, "00", instruction_ptr)
             elif instruction == "BRA": 
-                load_instruction(6, words[1], instruction_Ptr)
+                load_instruction(6, words[1], instruction_ptr)
             elif instruction == "BRZ": 
-                load_instruction(7, words[1], instruction_Ptr)
+                load_instruction(7, words[1], instruction_ptr)
             elif instruction == "BRP": 
-                load_instruction(8, words[1], instruction_Ptr)
-=======
-                loadInstruction(5, words[1], instruction_ptr)
-            elif instruction == "STA":
-                loadInstruction(3, words[1], instruction_ptr)
-            elif instruction == "ADD":
-                loadInstruction(1, words[1], instruction_ptr)
-            elif instruction == "SUB":
-                loadInstruction(2, words[1], instruction_ptr)
-            elif instruction == "INP\n":
-                loadInstruction(9, "01", instruction_ptr)
-            elif instruction == "OUT\n":
-                loadInstruction(9, "02", instruction_ptr)
-            elif instruction == "HTL\n":
-                loadInstruction(0, "00", instruction_ptr)
-            elif instruction == "BRA": 
-                loadInstruction(6, words[1], instruction_ptr)
-            elif instruction == "BRZ": 
-                loadInstruction(7, words[1], instruction_ptr)
-            elif instruction == "BRP": 
-                loadInstruction(8, words[1], instruction_ptr)
->>>>>>> 5f23b87b916506261423d210f2e614c950c11a92
+                load_instruction(8, words[1], instruction_ptr)
 
             instruction_ptr += 1
         in_file.close()
