@@ -10,7 +10,7 @@ class LittleManComputer():
             self.memory.append(0)
     
     def loadInstructions(self):
-        """Loads Instructions Into File"""
+        """Loads Instructions Into Memory"""
         def loadInstruction(op, strAddress, location):
             op = str(op)
             op += strAddress
@@ -39,6 +39,7 @@ class LittleManComputer():
         inFile.close()
     
     def run(self):
+        """Execute the code"""
         def lmcAdd():
             self.accumulator = self.accumulator + self.memory[self.addressRegister]
             
