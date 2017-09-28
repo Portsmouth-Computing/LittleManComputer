@@ -41,8 +41,11 @@ class LittleManComputer():
     def run(self):
         """Execute the code"""
         def lmcAdd():
-            self.accumulator = self.accumulator + self.memory[self.addressRegister]
+            self.accumulator += self.memory[self.addressRegister]
             
+        def lmcSub():
+            self.accumulator -= self.memory[self.addressRegister]
+
         def lmcLoad():
             self.accumulator = self.memory[self.addressRegister]
 
@@ -74,15 +77,19 @@ class LittleManComputer():
             #interpret
             if self.instructionRegister == 1:
                 lmcAdd()
-            if self.instructionRegister == 3:
+            elif self.instructionRegister == 2:
+                lmcSub()
+            elif self.instructionRegister == 3:
                 lmcStore()
-            if self.instructionRegister == 5:
+            elif self.instructionRegister == 5:
                 lmcLoad()
-            if self.instructionRegister == 9:
+            elif self.instructionRegister == 9:
                 if self.addressRegister == 1:
                     lmcInput()
                 elif self.addressRegister == 2:
                     lmcOutput()
+            else:
+                print ("UNRECOGNISED SYMBOL: ", self.instructionRegister)
             
 def main():
     print ("\n\nLITTLE MAN COMPUTER\n\n")
@@ -90,7 +97,7 @@ def main():
     lmc = LittleManComputer()
         
     #load the instructions
-    lmc.loadInstructions();
+    lmc.loadInstructions()
     
     #run the program
     lmc.run()
