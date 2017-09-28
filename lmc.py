@@ -16,34 +16,34 @@ class LittleManComputer():
             op += strAddress
             self.memory[location] = int(op)
         
-        inFile = open("instructions.txt")
-        instruction_Ptr = 0
-        for line in inFile:
+        in_file = open("instructions.txt")
+        instruction_ptr = 0
+        for line in in_file:
             words = line.split(" ")
             instruction = words[0]
             if instruction == "LDA":
-                loadInstruction(5, words[1], instruction_Ptr)
+                loadInstruction(5, words[1], instruction_ptr)
             elif instruction == "STA":
-                loadInstruction(3, words[1], instruction_Ptr)
+                loadInstruction(3, words[1], instruction_ptr)
             elif instruction == "ADD":
-                loadInstruction(1, words[1], instruction_Ptr)
+                loadInstruction(1, words[1], instruction_ptr)
             elif instruction == "SUB":
-                loadInstruction(2, words[1], instruction_Ptr)
+                loadInstruction(2, words[1], instruction_ptr)
             elif instruction == "INP\n":
-                loadInstruction(9, "01", instruction_Ptr)
+                loadInstruction(9, "01", instruction_ptr)
             elif instruction == "OUT\n":
-                loadInstruction(9, "02", instruction_Ptr)
+                loadInstruction(9, "02", instruction_ptr)
             elif instruction == "HTL\n":
-                loadInstruction(0, "00", instruction_Ptr)
+                loadInstruction(0, "00", instruction_ptr)
             elif instruction == "BRA": 
-                loadInstruction(6, words[1], instruction_Ptr)
+                loadInstruction(6, words[1], instruction_ptr)
             elif instruction == "BRZ": 
-                loadInstruction(7, words[1], instruction_Ptr)
+                loadInstruction(7, words[1], instruction_ptr)
             elif instruction == "BRP": 
-                loadInstruction(8, words[1], instruction_Ptr)
+                loadInstruction(8, words[1], instruction_ptr)
 
-            instruction_Ptr += 1
-        inFile.close()
+            instruction_ptr += 1
+        in_file.close()
     
     def run(self):
         """Execute the code"""
@@ -75,8 +75,7 @@ class LittleManComputer():
         def lmcBranchIfZeroOrPositive():
             if self.accumulator >= 0:
                 lmcBranchAlways()
-            
-    
+
         print ("\n RUNNING \n")
         while self.instructionRegister != 0:
             print ("Inst: ", self.instructionRegister)
