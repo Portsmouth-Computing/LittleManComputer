@@ -9,9 +9,9 @@ class LittleManComputer():
         for i in range (100):
             self.memory.append(0)
     
-    def loadInstructions(self):
+    def load_instructions(self):
         """Loads Instructions Into Memory"""
-        def loadInstruction(op, strAddress, location):
+        def load_instruction(op, strAddress, location):
             op = str(op)
             op += strAddress
             self.memory[location] = int(op)
@@ -22,25 +22,25 @@ class LittleManComputer():
             words = line.split(" ")
             instruction = words[0]
             if instruction == "LDA":
-                loadInstruction(5, words[1], instruction_Ptr)
+                load_instruction(5, words[1], instruction_Ptr)
             elif instruction == "STA":
-                loadInstruction(3, words[1], instruction_Ptr)
+                load_instruction(3, words[1], instruction_Ptr)
             elif instruction == "ADD":
-                loadInstruction(1, words[1], instruction_Ptr)
+                load_instruction(1, words[1], instruction_Ptr)
             elif instruction == "SUB":
-                loadInstruction(2, words[1], instruction_Ptr)
+                load_instruction(2, words[1], instruction_Ptr)
             elif instruction == "INP\n":
-                loadInstruction(9, "01", instruction_Ptr)
+                load_instruction(9, "01", instruction_Ptr)
             elif instruction == "OUT\n":
-                loadInstruction(9, "02", instruction_Ptr)
+                load_instruction(9, "02", instruction_Ptr)
             elif instruction == "HTL\n":
-                loadInstruction(0, "00", instruction_Ptr)
+                load_instruction(0, "00", instruction_Ptr)
             elif instruction == "BRA": 
-                loadInstruction(6, words[1], instruction_Ptr)
+                load_instruction(6, words[1], instruction_Ptr)
             elif instruction == "BRZ": 
-                loadInstruction(7, words[1], instruction_Ptr)
+                load_instruction(7, words[1], instruction_Ptr)
             elif instruction == "BRP": 
-                loadInstruction(8, words[1], instruction_Ptr)
+                load_instruction(8, words[1], instruction_Ptr)
 
             instruction_Ptr += 1
         inFile.close()
@@ -63,7 +63,7 @@ class LittleManComputer():
             self.accumulator = int(input("Enter input: "))
             
         def lmcOutput():
-            print("Output:", self.accumulator)
+            print ("Output:", self.accumulator)
 
         def lmcBranchAlways():
             self.progCounter = self.addressRegister
@@ -85,8 +85,8 @@ class LittleManComputer():
             instr   = str(self.memory[self.progCounter])
             if int(instr) == 0:
                 break
-
-            opcode = instr[0]
+            
+            opcode  = instr[0]
 
             if len(instr) == 3:
                 address = instr[1] + instr[2]
@@ -94,11 +94,11 @@ class LittleManComputer():
                 address = instr[1]
 
             self.progCounter += 1
-
+            
             #push to registers
             self.instructionRegister = int(opcode)
             self.addressRegister     = int(address)
-
+            
             #interpret
             if self.instructionRegister == 1:
                 lmcAdd()
@@ -111,9 +111,9 @@ class LittleManComputer():
             elif self.instructionRegister == 6:
                 lmcBranchAlways()
             elif self.instructionRegister == 7:
-                lmcBranchAlways()
+                lmcBranchIfZero()
             elif self.instructionRegister == 8:
-                lmcBranchAlways()
+                lmcBranchIfZeroOrPositive()
             elif self.instructionRegister == 9:
                 if self.addressRegister == 1:
                     lmcInput()
@@ -128,7 +128,7 @@ def main():
     lmc = LittleManComputer()
         
     #load the instructions
-    lmc.loadInstructions()
+    lmc.load_instructions()
     
     #run the program
     lmc.run()
