@@ -1,11 +1,5 @@
 memory = [] 
 
-
-progCounter = 0
-instructionRegister = -1
-addressRegister = 0
-accumulator = 0
-
 def loadInstruction(op, strAddress, location):
     op = str(op)
     op += strAddress
@@ -44,9 +38,19 @@ def loadInstructions():
 
         
 def run():
+    progCounter = 0
+    instructionRegister = -1
+    addressRegister = 0
+    accumulator = 0
+
     print ("\n RUNNING \n")
     while instructionRegister != 0:
+    
         instruction = memory[progCounter]
+        
+        instructionRegister = str(instruction)[0]
+        
+        
         instrStr = str(instruction)
         print (instruction)
         progCounter += 1
