@@ -37,6 +37,11 @@ class LittleManComputer():
                 loadInstruction(0, "00", instruction_Ptr)
             elif instruction == "BRA": 
                 loadInstruction(6, words[1], instruction_Ptr)
+            elif instruction == "BRZ": 
+                loadInstruction(7, words[1], instruction_Ptr)
+            elif instruction == "BRP": 
+                loadInstruction(8, words[1], instruction_Ptr)
+
             instruction_Ptr += 1
         inFile.close()
     
@@ -61,8 +66,15 @@ class LittleManComputer():
             print ("Output:", self.accumulator)
 
         def lmcBranchAlways():
-            print("Branching")
             self.progCounter = self.addressRegister
+
+        def lmcBranchIfZero():
+            if self.accumulator == 0:
+                lmcBranchAlways()
+
+        def lmcBranchIfZeroOrPositive():
+            if self.accumulator >= 0:
+                lmcBranchAlways()
             
     
         print ("\n RUNNING \n")
@@ -97,6 +109,10 @@ class LittleManComputer():
             elif self.instructionRegister == 5:
                 lmcLoad()
             elif self.instructionRegister == 6:
+                lmcBranchAlways()
+            elif self.instructionRegister == 7:
+                lmcBranchAlways()
+            elif self.instructionRegister == 8:
                 lmcBranchAlways()
             elif self.instructionRegister == 9:
                 if self.addressRegister == 1:
