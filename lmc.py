@@ -41,7 +41,8 @@ class LittleManComputer():
             self.accumulator = self.accumulator + self.memory[self.addressRegister]
             
         def lmcLoad():
-            self.accumulator = self.memory[addressRegister]
+            self.accumulator = self.memory[self.addressRegister]
+
         def lmcStore():
             self.memory[self.addressRegister] = self.accumulator
             
