@@ -10,7 +10,7 @@
         },
         {
             "taskName": "Run File",
-            "command": "python ${file}",
+            "command": "py ${file}",
             "type": "shell",
             "group": {
                 "kind": "build",

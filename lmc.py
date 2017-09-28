@@ -72,16 +72,16 @@ class LittleManComputer():
             self.addressRegister     = int(address)
             
             #interpret
-            if (self.instructionRegister == 1):
+            if self.instructionRegister == 1:
                 lmcAdd()
-            if (self.instructionRegister == 3):
+            if self.instructionRegister == 3:
                 lmcStore()
-            if (self.instructionRegister == 5):
+            if self.instructionRegister == 5:
                 lmcLoad()
-            if (self.instructionRegister == 9):
-                if (self.addressRegister == 1):
+            if self.instructionRegister == 9:
+                if self.addressRegister == 1:
                     lmcInput()
-                elif (self.addressRegister == 2):
+                elif self.addressRegister == 2:
                     lmcOutput()
             
 def main():
