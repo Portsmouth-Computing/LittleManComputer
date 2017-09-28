@@ -8,45 +8,34 @@ class LittleManComputer():
         for i in range (100):
             self.memory.append(0)
     
-
-    def loadInstruction(self, op, strAddress, location):
-        op = str(op)
-        op += strAddress
-        self.memory[location] = int(op)
-    
     def loadInstructions(self):
-        inFile = open("instructions.txt")
+        def loadInstruction(op, strAddress, location):
+            op = str(op)
+            op += strAddress
+            self.memory[location] = int(op)
         
+        inFile = open("instructions.txt")
         instructionPtr = 0
         for line in inFile:
             words = line.split(" ")
             instruction = words[0]
             if (instruction == "LDA"):
-                self.loadInstruction(5, words[1], instructionPtr)
+                loadInstruction(5, words[1], instructionPtr)
             elif(instruction == "STA"):
-                self.loadInstruction(3, words[1], instructionPtr)
+                loadInstruction(3, words[1], instructionPtr)
             elif (instruction == "ADD"):
-                self.loadInstruction(1, words[1], instructionPtr)
+                loadInstruction(1, words[1], instructionPtr)
             elif (instruction == "SUB"):
-                self.loadInstruction(2, words[1], instructionPtr)
+                loadInstruction(2, words[1], instructionPtr)
             elif (instruction == "INP\n"):
-                self.loadInstruction(9, "01", instructionPtr)
+                loadInstruction(9, "01", instructionPtr)
             elif (instruction == "OUT\n"):
-                self.loadInstruction(9, "02", instructionPtr)
+                loadInstruction(9, "02", instructionPtr)
             elif (instruction == "HTL\n"): 
-                self.loadInstruction(0, "00", instructionPtr)
+                loadInstruction(0, "00", instructionPtr)
             instructionPtr += 1
-            
         inFile.close()
-        
-        print ("Instructions:")
-        for instruction in self.memory:
-            print (instruction)
-            if instruction == 0:
-                break;
-            
     
-            
     def run(self):
         def lmcAdd():
             self.accumulator = self.accumulator + self.memory[self.addressRegister]
@@ -60,7 +49,7 @@ class LittleManComputer():
             self.accumulator = int(input("Enter input: "))
             
         def lmcOutput():
-            print (self.accumulator)
+            print ("Output:", self.accumulator)
     
         print ("\n RUNNING \n")
         while self.instructionRegister != 0:
@@ -78,8 +67,6 @@ class LittleManComputer():
             self.instructionRegister = int(opcode)
             self.addressRegister     = int(address)
             
-           #print ("instruction: ", self.instructionRegister, " add ", self.addressRegister)
-            
             #interpret
             if (self.instructionRegister == 1):
                 lmcAdd()
@@ -93,9 +80,6 @@ class LittleManComputer():
                 elif (self.addressRegister == 2):
                     lmcOutput()
             
-    
-    
-
 def main():
     print ("\n\nLITTLE MAN COMPUTER\n\n")
     #init the memory
@@ -106,12 +90,6 @@ def main():
     
     #run the program
     lmc.run()
-    
-    
-    
-    
-
-    
     
 if __name__ == "__main__":
     main()
