@@ -30,6 +30,7 @@ def loadInstructions():
         
     inFile.close()
     
+    print ("Instructions:")
     for instruction in memory:
         print (instruction)
         if instruction == 0:
@@ -45,20 +46,51 @@ def run():
 
     print ("\n RUNNING \n")
     while instructionRegister != 0:
+        #split instructions into instruction and address
+        #bus would move to address, take into cpu registers
+        instr   = str(memory[progCounter])
+        if int(instr) == 0:
+            break
+        
+        opcode  = instr[0]
+        address = instr[1] + instr[2]
+        progCounter += 1
+        
+        #push to registers
+        instructionRegister = int(opcode)
+        addressRegister     = int(address)
+        
+        print ("instruction: ", instructionRegister, " add ", addressRegister)
+        
+        #interpret
+        
+        
+        
+        '''
+        #
+        progCounter += 1
+        
+        
+        
+        
+        
+    
+    
     
         instruction = memory[progCounter]
-        
         instructionRegister = str(instruction)[0]
         
         
         instrStr = str(instruction)
         print (instruction)
         progCounter += 1
+        '''
         
     
     
 
 def main():
+    print ("\n\nLITTLE MAN COMPUTER\n\n")
     #init the memory
     for i in range (99):
         memory.append(0)
