@@ -35,6 +35,8 @@ class LittleManComputer():
                 loadInstruction(9, "02", instruction_Ptr)
             elif instruction == "HTL\n":
                 loadInstruction(0, "00", instruction_Ptr)
+            elif instruction == "BRA": 
+                loadInstruction(6, words[1], instruction_Ptr)
             instruction_Ptr += 1
         inFile.close()
     
@@ -57,9 +59,15 @@ class LittleManComputer():
             
         def lmcOutput():
             print ("Output:", self.accumulator)
+
+        def lmcBranchAlways():
+            print("Branching")
+            self.progCounter = self.addressRegister
+            
     
         print ("\n RUNNING \n")
         while self.instructionRegister != 0:
+            print ("Inst: ", self.instructionRegister)
             #split instructions into instruction and address
             #bus would move to address, take into cpu registers
             instr   = str(self.memory[self.progCounter])
@@ -67,7 +75,12 @@ class LittleManComputer():
                 break
             
             opcode  = instr[0]
-            address = instr[1] + instr[2]
+
+            if len(instr) == 3:
+                address = instr[1] + instr[2]
+            else:
+                address = instr[1]
+
             self.progCounter += 1
             
             #push to registers
@@ -83,6 +96,8 @@ class LittleManComputer():
                 lmcStore()
             elif self.instructionRegister == 5:
                 lmcLoad()
+            elif self.instructionRegister == 6:
+                lmcBranchAlways()
             elif self.instructionRegister == 9:
                 if self.addressRegister == 1:
                     lmcInput()
