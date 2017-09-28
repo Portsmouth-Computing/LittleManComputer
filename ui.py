@@ -42,7 +42,7 @@ class Window(Frame):
         
         self.address_label = Label(self,text="Current Address")
         self.address_label.gird(row = 7, column = 4)
-        self.address_value.Label(self text = "<<<Insert Value here>>>", bg = 'grey')
+        self.address_value.Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
         self.address_value.grid(row = 8, column = 4)
 
         self.instruction_label = Label(self, text = "Instruction Register")
