@@ -1,7 +1,6 @@
 from tkinter import *
 import random , time
 
-
 class Window(Frame):
     """Creates window for input of LMC"""
     def __init__(self, master=None):
