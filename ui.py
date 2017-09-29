@@ -6,7 +6,7 @@ class Window(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
         #Frame.configure(self, bg = 'black')
-        Frame.grid_columnconfigure(self,3,minsize = 20) # Add a spacer
+        Frame.grid_columnconfigure(self, 3, minsize=20)#Add a spacer
         self.master = master
         self.init_window()
         self.accumulator = 0
@@ -15,9 +15,8 @@ class Window(Frame):
         """ craetes window and all the options"""
         self.master.title("LMC")
         self.pack(fill=BOTH, expand=1)
-        self.header_label = Label(self, text = "Little Man Computer")
-        self.header_label.grid(row = 0, column = 0, columnspan = 3 )
-        
+        self.header_label = Label(self, text="Little Man Computer")
+        self.header_label.grid(row = 0, column = 0, columnspan = 3)
         # Create text box
         self.textarea = Text(self,width = 20, height = 35)
         #self.textarea.pack(expand=NO, fill ="y")
@@ -35,14 +34,14 @@ class Window(Frame):
         self.accumulator_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
         self.accumulator_value.grid(row = 2, column = 4)
 
-        self.prog_label = Label(self,text="Progress")
-        self.prog_label.grid(row = 4, column = 4)
+        self.prog_label = Label(self, text="Progress")
+        self.prog_label.grid(row=4, column=4)
         self.prog_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
         self.prog_value.grid(row = 5, column = 4)
         
-        self.address_label = Label(self,text="Current Address")
-        self.address_label.gird(row = 7, column = 4)
-        self.address_value.Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
+        self.address_label = Label(self, text="Current Address")
+        self.address_label.grid(row = 7, column = 4)
+        self.address_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
         self.address_value.grid(row = 8, column = 4)
 
         self.instruction_label = Label(self, text = "Instruction Register")
@@ -50,8 +49,9 @@ class Window(Frame):
         self.instruction_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
         self.instruction_value.grid(row = 11, column = 4)
 
+        #self.
 
-        
+
 
     def run(self):
         """Execute the computation"""
@@ -65,7 +65,7 @@ class Window(Frame):
         exit()
 
 root = Tk()
-root.geometry("500x700")
+root.geometry("900x650")
 
 app = Window(master=root)
 app.mainloop()
