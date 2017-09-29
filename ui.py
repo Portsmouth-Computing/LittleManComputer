@@ -10,9 +10,6 @@ class Window(Frame):
         Frame.grid_columnconfigure(self, 3, minsize=20)#Add a spacer
         Frame.grid_columnconfigure(self, 5, minsize=20)
 
-        self.membackgroud = Canvas(self, bg="black",  width=500)
-        self.membackgroud.grid(row = 1, column = 5,columnspan = 15, rowspan = 20)
-
         self.master = master
         self.accumulator = 0
         self.memory = []
@@ -76,7 +73,7 @@ class Window(Frame):
                     loc_var = int(y/2 * 10 + x)
                     var.set("Address " + str(loc_var))
                     self.memory_label = Label(self, textvariable = var)
-                    self.memory_label.grid(row = 1 +(y), column = 6+(x))
+                    self.memory_label.grid(row = 1 +(y), column = 6+(x),ipadx = 5, ipady = 2 )
                 else:
                     value_var.set(self.memory[loc_var])
                     self.memory_value = Label(self, textvariable = value_var, bg = 'grey')
@@ -102,5 +99,6 @@ root = Tk()
 root.geometry("1000x650")
 
 app = Window(master=root)
-app.update_memory()
+
+#app.update_memory()
 app.mainloop()
