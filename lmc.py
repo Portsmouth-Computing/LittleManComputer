@@ -1,16 +1,16 @@
-class LittleManComputer():
+from tkinter import *
+import random , time
+
+class Window(Frame):
     """LMC""" 
-    def __init__(self):
+    def __init__(self, master=None):
         Frame.__init__(self, master)
         #Frame.configure(self, bg = 'black')
         Frame.grid_columnconfigure(self, 3, minsize=20)#Add a spacer
         Frame.grid_columnconfigure(self, 5, minsize=20)
 
         self.master = master
-        self.memory[86] = 900
-        self.init_window()
-        self.update_memory()
-        self.update_counters()
+      
         self.memory                 = [] 
         self.progCounter            = 0
         self.instructionRegister    = -1
@@ -18,7 +18,12 @@ class LittleManComputer():
         self.accumulator            = 0
         for i in range (100):
             self.memory.append(0)
-    
+            
+        self.init_window()
+        self.update_memory()
+        self.update_counters()
+
+
     def load_instructions(self):
         """Loads Instructions Into Memory"""
         def load_instruction(op, strAddress, location):
@@ -26,7 +31,7 @@ class LittleManComputer():
             op += strAddress
             self.memory[location] = int(op)
         
-        in_file = open("instructions.txt")
+        in_file = self.textarea.get(1.0, END)
         instruction_ptr = 0
         for line in in_file:
             words = line.split(" ")
@@ -200,18 +205,10 @@ class LittleManComputer():
 
 def main():
     print ("\n\nLITTLE MAN COMPUTER\n\n")
-    #init the memory
-    lmc = LittleManComputer()
-        
-    #load the instructions
-    lmc.load_instructions()
-    
-    #run the program
-    lmc.run()
 
     #Creates UI and starts
     root = Tk()
-    root.geometry("1000x650")
+    root.geometry("1100x650")
     app = Window(master=root)
     #app.update_memory()
     app.mainloop()
