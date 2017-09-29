@@ -1,4 +1,5 @@
 from tkinter import *
+import random , time
 
 
 class Window(Frame):
@@ -7,9 +8,22 @@ class Window(Frame):
         Frame.__init__(self, master)
         #Frame.configure(self, bg = 'black')
         Frame.grid_columnconfigure(self, 3, minsize=20)#Add a spacer
+        Frame.grid_columnconfigure(self, 5, minsize=20)
+
+        self.membackgroud = Canvas(self, bg="black",  width=500)
+        self.membackgroud.grid(row = 1, column = 5,columnspan = 15, rowspan = 20)
+
         self.master = master
-        self.init_window()
         self.accumulator = 0
+        self.memory = []
+        for i in range (100):
+            self.memory.append(000)
+        
+        self.memory[86] = 900
+        self.init_window()
+        self.update_memory()
+        self.update_counters()
+
 
     def init_window(self):
         """ craetes window and all the options"""
@@ -28,8 +42,12 @@ class Window(Frame):
         self.reset_button.grid(row = 22, column = 1)
         self.burn_it_all = Button(self, text = "Exit", command = self.exit)
         self.burn_it_all.grid(row = 22, column = 2)
+        self.burn_it_all = Button(self, text = "randmem", command = self.update_random_mem)
+        self.burn_it_all.grid(row = 23, column = 2)
 
-        self.accumulator_label = Label(self,text="Accumulator", bg = 'grey')
+
+    def update_counters(self):
+        self.accumulator_label = Label(self,text="Accumulator")
         self.accumulator_label.grid(row = 1, column = 4)
         self.accumulator_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
         self.accumulator_value.grid(row = 2, column = 4)
@@ -48,10 +66,21 @@ class Window(Frame):
         self.instruction_label.grid(row = 10, column = 4)
         self.instruction_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
         self.instruction_value.grid(row = 11, column = 4)
-
-        #self.
-
-
+        
+    def update_memory(self):
+        for x in range(0,10):
+            for y in range(0,20):
+                var = StringVar()
+                value_var = StringVar()
+                if y % 2 == 0:
+                    loc_var = int(y/2 * 10 + x)
+                    var.set("Address " + str(loc_var))
+                    self.memory_label = Label(self, textvariable = var)
+                    self.memory_label.grid(row = 1 +(y), column = 6+(x))
+                else:
+                    value_var.set(self.memory[loc_var])
+                    self.memory_value = Label(self, textvariable = value_var, bg = 'grey')
+                    self.memory_value.grid(row = 1 +(y), column = 6+(x))
 
     def run(self):
         """Execute the computation"""
@@ -64,8 +93,14 @@ class Window(Frame):
     def exit(self):
         exit()
 
+    def update_random_mem(self):
+        for x in range(0,100):
+            self.memory[x] = random.randint(0,999)
+        self.update_memory()
+
 root = Tk()
-root.geometry("900x650")
+root.geometry("1000x650")
 
 app = Window(master=root)
+app.update_memory()
 app.mainloop()
