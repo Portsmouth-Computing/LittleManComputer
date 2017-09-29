@@ -32,34 +32,41 @@ class Window(Frame):
             self.memory[location] = int(op)
         
         in_file = self.textarea.get(1.0, END)
+        in_file = in_file.split("\n")
+        print(in_file)
         instruction_ptr = 0
         for line in in_file:
+            print(line)
             words = line.split(" ")
             instruction = words[0]
-            if instruction == "LDA":
-                load_instruction(5, words[1], instruction_ptr)
-            elif instruction == "STA":
-                load_instruction(3, words[1], instruction_ptr)
-            elif instruction == "ADD":
+            if instruction == "ADD":
                 load_instruction(1, words[1], instruction_ptr)
             elif instruction == "SUB":
                 load_instruction(2, words[1], instruction_ptr)
-            elif instruction == "INP\n":
-                load_instruction(9, "01", instruction_ptr)
-            elif instruction == "OUT\n":
-                load_instruction(9, "02", instruction_ptr)
-            elif instruction == "HTL\n":
-                load_instruction(0, "00", instruction_ptr)
+            elif instruction == "STA":
+                load_instruction(3, words[1], instruction_ptr)
+            elif instruction == "LDA":
+                load_instruction(5, words[1], instruction_ptr)
             elif instruction == "BRA": 
                 load_instruction(6, words[1], instruction_ptr)
             elif instruction == "BRZ": 
                 load_instruction(7, words[1], instruction_ptr)
             elif instruction == "BRP": 
                 load_instruction(8, words[1], instruction_ptr)
+            elif instruction == "INP":
+                load_instruction(9, "01", instruction_ptr)
+            elif instruction == "OUT":
+                load_instruction(9, "02", instruction_ptr)
+            elif instruction == "HTL":
+                load_instruction(0, "00", instruction_ptr)
+
             instruction_ptr += 1
             
-        in_file.close()
-    
+        #in_file.close()
+        print(self.memory)
+        self.update_memory()
+
+
     def run(self):
         """Execute the code"""
         def lmcAdd():
@@ -93,13 +100,13 @@ class Window(Frame):
 
         print ("\n RUNNING \n")
         while self.instructionRegister != 0:
-            print ("Inst: ", self.instructionRegister)
+            
             #split instructions into instruction and address
             #bus would move to address, take into cpu registers
             instr   = str(self.memory[self.progCounter])
+            print(instr)
             if int(instr) == 0:
                 break
-            
             opcode  = instr[0]
 
             if len(instr) == 3:
@@ -112,6 +119,8 @@ class Window(Frame):
             #push to registers
             self.instructionRegister = int(opcode)
             self.addressRegister     = int(address)
+
+            print ("Inst: ", self.instructionRegister)
             
             #interpret
             if self.instructionRegister == 1:
@@ -153,8 +162,10 @@ class Window(Frame):
         self.reset_button.grid(row = 22, column = 1)
         self.burn_it_all = Button(self, text = "Exit", command = self.exit)
         self.burn_it_all.grid(row = 22, column = 2)
-        self.burn_it_all = Button(self, text = "randmem", command = self.update_random_mem)
-        self.burn_it_all.grid(row = 23, column = 2)
+        self.randmem = Button(self, text = "randmem", command = self.update_random_mem)
+        self.randmem.grid(row = 23, column = 2)
+        self.assemble = Button(self, text = "Load", command = self.load_instructions)
+        self.assemble.grid(row = 23, column = 0)
 
 
     def update_counters(self):
