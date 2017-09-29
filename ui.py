@@ -1,7 +1,6 @@
 from tkinter import *
 import random , time
 
-
 class Window(Frame):
     """Creates window for input of LMC"""
     def __init__(self, master=None):
@@ -23,7 +22,7 @@ class Window(Frame):
 
 
     def init_window(self):
-        """ craetes window and all the options"""
+        """ Creates window and all the options"""
         self.master.title("LMC")
         self.pack(fill=BOTH, expand=1)
         self.header_label = Label(self, text="Little Man Computer")
