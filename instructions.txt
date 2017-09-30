@@ -1,7 +1,19 @@
+INP 
+STA a 
 INP
-STA test
-INP
-jump ADD test
+SUB one
+STA b
+begin LDA sum
+ADD a
+STA sum
+LDA b
+SUB one
+STA b
+BRP begin
+LDA sum
 OUT
-BRA jump
-test DAT 50
+HLT
+a DAT 0
+b DAT 0
+sum DAT 0
+one DAT 1

@@ -47,6 +47,7 @@ class Window(Frame):
         """Loads Instructions Into Memory"""
         
         instructionList = self.textarea.get(1.0, END)
+        instructionList.upper()
         instructionList = instructionList.split("\n")
         
         instructionList.pop(len(instructionList) - 1)
@@ -89,7 +90,7 @@ class Window(Frame):
                 load_instruction(9, "01", memLocation)
             elif instruction == "OUT":
                 load_instruction(9, "02", memLocation)
-            elif instruction == "HTL":
+            elif instruction == "HLT":
                 load_instruction(0, "00", memLocation)
             else:
                 self.labels[instruction] = memLocation
