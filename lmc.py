@@ -23,9 +23,17 @@ class Window(Frame):
         self.init_window()
         self.update_memory()
         self.update_counters()
-
+        self.update_output()
 
     def load_instructions(self):
+        self.memory = []
+        for i in range (100):
+            self.memory.append(0)
+        self.progCounter            = 0
+        self.instruction_register    = -1
+        self.addressRegister        = 0
+        self.accumulator            = 0
+
         """Loads Instructions Into Memory"""
         def load_instruction(op, strAddress, location):
             op = str(op)
@@ -89,11 +97,13 @@ class Window(Frame):
         def lmcStore():
             self.memory[self.addressRegister] = self.accumulator
             
-        def lmcInput():
-            self.accumulator = int(input("Enter input: "))
+        def lmcInput(self):
+            self.create_input()
+            #self.accumulator = int(input("Enter input: "))
             
-        def lmcOutput():
+        def lmcOutput(self):
             print ("Output:", self.accumulator)
+            self.update_output()
 
         def lmcBranchAlways():
             self.progCounter = self.addressRegister
@@ -148,14 +158,13 @@ class Window(Frame):
                 lmcBranchIfZeroOrPositive()
             elif self.instruction_register == 9:
                 if self.addressRegister == 1:
-                    lmcInput()
+                    lmcInput(self)
                 elif self.addressRegister == 2:
-                    lmcOutput()
+                    lmcOutput(self)
             else:
                 print ("UNRECOGNISED SYMBOL: ", self.instruction_register)
             
-
-    def init_window(self):
+    def init_window(self):  
         """ Creates window and all the options"""
         self.master.title("LMC")
         self.pack(fill=BOTH, expand=1)
@@ -165,7 +174,6 @@ class Window(Frame):
         self.textarea = Text(self,width = 20, height = 35)
         #self.textarea.pack(expand=NO, fill ="y")
         self.textarea.grid(row = 1, column = 0, columnspan = 3, rowspan = 20)
-
         self.execute_button = Button(self, text = "Execute", command = self.run)
         self.execute_button.grid(row = 22, column = 0)
         self.reset_button = Button(self, text = "Reset", command = self.reset)
@@ -177,9 +185,7 @@ class Window(Frame):
         self.assemble = Button(self, text = "Load", command = self.load_instructions)
         self.assemble.grid(row = 23, column = 0)
 
-
-    def update_counters(self):
-       
+    def update_counters(self):       
         self.accvar = IntVar()
         self.accvar.set(self.accumulator)
         self.accumulator_label = Label(self,text="Accumulator")
@@ -207,7 +213,15 @@ class Window(Frame):
         self.instruction_label.grid(row = 10, column = 4)
         self.instruction_value = Label(self, textvariable = self.instruction_value, bg = 'grey')
         self.instruction_value.grid(row = 11, column = 4)
-        
+
+    def update_output(self):
+        self.output_value = IntVar()
+        self.output_value.set(self.accumulator)
+        self.output_label = Label(self, text = "Output")
+        self.output_label.grid(row = 13, column = 4)
+        self.output_value = Label(self, textvariable = self.output_value, bg = 'grey')
+        self.output_value.grid(row = 14, column = 4)
+
     def update_memory(self):
         for x in range(0,10):
             for y in range(0,20):
@@ -222,6 +236,14 @@ class Window(Frame):
                     value_var.set(self.memory[loc_var])
                     self.memory_value = Label(self, textvariable = value_var, bg = 'grey')
                     self.memory_value.grid(row = 1 +(y), column = 6+(x))
+    
+    def create_input(self):
+        self.inputarea = Text(self, height = 1, width = 20)
+        self.inputbutton = Button(self, text = "Confirm Input")
+
+        self.inputarea.grid(row = 16, column = 4)
+        self.inputbutton.grid(row = 16, column = 5)
+
     def reset(self):
         self.textarea.delete(1.0, END)
         
