@@ -1,6 +1,13 @@
 from tkinter import *
 import random , time
 
+class Command:
+    '''raw data for a command'''
+    def __init__(self):
+        self.label      = ""
+        self.op         = ""
+        self.address    = ""
+
 class Window(Frame):
     """LMC""" 
     def __init__(self, master=None):
@@ -16,7 +23,6 @@ class Window(Frame):
         self.instructionRegister    = -1
         self.addressRegister        = 0
         self.accumulator            = 0
-        self.labels                 = dict() #var name, program counter
         for i in range (100):
             self.memory.append(0)
     
@@ -31,15 +37,8 @@ class Window(Frame):
             op = str(op)
             op += strAddress
             self.memory[location] = int(op)
-        
-        instructionList = self.textarea.get(1.0, END)
-        instructionList = instructionList.split("\n")
 
-        instruction_ptr = 0
-        for line in instructionList:
-            print(line)
-            words = line.split(" ")
-
+        def parse(words, command):
             instruction = words[0]
             if instruction == "ADD":
                 load_instruction(1, words[1], instruction_ptr)
@@ -62,8 +61,18 @@ class Window(Frame):
             elif instruction == "HTL":
                 load_instruction(0, "00", instruction_ptr)
             else:
-                self.labels[instruction] = instruction_ptr
+                command
 
+
+        
+        instructionList = self.textarea.get(1.0, END)
+        instructionList = instructionList.split("\n")
+
+        instruction_ptr = 0
+        for line in instructionList:
+            print(line)
+            words = line.split(" ")
+            parse(words, Command())
             instruction_ptr += 1
             
         print(self.memory)
