@@ -1,6 +1,7 @@
 INP
 STA test
 INP
-ADD 99
+jump ADD test
 OUT
+BRA jump
 test DAT 50
