@@ -1,7 +1,14 @@
 from tkinter import *
 import random , time
 
+class Command():
+    def __init__(self):
+        self.label      = " "
+        self.command    = " "
+        self.address    = " "
+
 class Window(Frame):
+
     """LMC""" 
     def __init__(self, master=None):
         Frame.__init__(self, master)
@@ -16,14 +23,26 @@ class Window(Frame):
         self.instruction_register    = -1
         self.addressRegister        = 0
         self.accumulator            = 0
-        self.labels                 = dict() #var name, program counter
+        self.labels                 = dict()
         for i in range (100):
             self.memory.append(0)
-            
         self.init_window()
         self.update_memory()
         self.update_counters()
+
+        self.commands = {   "HTL": 0, 
+                            "ADD": 1,
+                            "SUB": 2,
+                            "STA": 3,
+                            "LDA": 5,
+                            "BRA": 6,
+                            "BRZ": 7,
+                            "BRP": 8,
+                            "INP": 9,
+                            "OUT": 9,
+                            "DAT": 4} #temp
         self.update_output()
+
 
     def load_instructions(self):
         self.memory = []
@@ -35,51 +54,74 @@ class Window(Frame):
         self.accumulator            = 0
 
         """Loads Instructions Into Memory"""
-        def load_instruction(op, strAddress, location):
-            op = str(op)
-            op += strAddress
-            self.memory[location] = int(op)
         
         instructionList = self.textarea.get(1.0, END)
         instructionList = instructionList.split("\n")
+        
+        instructionList.pop(len(instructionList) - 1)
+        #first pass, find labels
+        instruction_ptr = 0
+        for line in instructionList:
+            words = line.split(" ")
+            if not words[0] in self.commands:
+                print ("Found label: ", words[0], "with value", )
+                self.labels[words[0]] = instruction_ptr
+            instruction_ptr += 1
+
+        #second pass, actually set up the memory
+        def load_instruction(op, strAddress, location): #int, str, int
+            '''Loads up a single instruction'''
+            memAddress = 0
+            try:
+                memAddress = int(strAddress)
+            except ValueError:
+                memAddress = self.labels[strAddress]
+            self.memory[location] = int(str(op) + str(memAddress))
+            print ("Memory:", location, "op:", int(str(op) + str(memAddress)), "indv: ", op, memAddress )
+
+        def parse(words, memLocation):
+            instruction = words[0]
+            if instruction == "ADD":
+                load_instruction(1, words[1], memLocation)
+            elif instruction == "SUB":
+                load_instruction(2, words[1], memLocation)
+            elif instruction == "STA":
+                load_instruction(3, words[1], memLocation)
+            elif instruction == "LDA":
+                load_instruction(5, words[1], memLocation)
+            elif instruction == "BRA": 
+                load_instruction(6, words[1], memLocation)
+            elif instruction == "BRZ": 
+                load_instruction(7, words[1], memLocation)
+            elif instruction == "BRP": 
+                load_instruction(8, words[1], memLocation)
+            elif instruction == "INP":
+                load_instruction(9, "01", memLocation)
+            elif instruction == "OUT":
+                load_instruction(9, "02", memLocation)
+            elif instruction == "HTL":
+                load_instruction(0, "00", memLocation)
+            else:
+                self.labels[instruction] = memLocation
+                if (words[1] == "DAT"): #Dat, takes the form of NAME DAT INITAL VALUE
+                    if(len(words) == 2):
+                        self.memory[memLocation] = 0
+                    else: 
+                        self.memory[memLocation] = int(words[2])    
+                        print ("Found data: ", words[2])
+                else:
+                    print ("popped af")
+                    words.pop(0)
+                    parse(words, memLocation)
 
         instruction_ptr = 0
         for line in instructionList:
-            print(line)
             words = line.split(" ")
-
-
-            instruction = words[0]
-            if instruction == "ADD":
-                load_instruction(1, words[1], instruction_ptr)
-            elif instruction == "SUB":
-                load_instruction(2, words[1], instruction_ptr)
-            elif instruction == "STA":
-                load_instruction(3, words[1], instruction_ptr)
-            elif instruction == "LDA":
-                load_instruction(5, words[1], instruction_ptr)
-            elif instruction == "BRA": 
-                load_instruction(6, words[1], instruction_ptr)
-            elif instruction == "BRZ": 
-                load_instruction(7, words[1], instruction_ptr)
-            elif instruction == "BRP": 
-                load_instruction(8, words[1], instruction_ptr)
-            elif instruction == "INP":
-                load_instruction(9, "01", instruction_ptr)
-            elif instruction == "OUT":
-                load_instruction(9, "02", instruction_ptr)
-            elif instruction == "HTL":
-                load_instruction(0, "00", instruction_ptr)
-            else:
-                self.labels[instruction] = instruction_ptr
-
-
-
-
+            print ("WORDS:", words)
+            parse(words, instruction_ptr)
             instruction_ptr += 1
             
-        #in_file.close()
-        print(self.memory)
+        #update the GUI
         self.update_memory()
 
 
@@ -117,9 +159,11 @@ class Window(Frame):
                 lmcBranchAlways()
 
         print ("\n RUNNING \n")
+
         while self.instruction_register != 0:
             self.update_counters()
             self.update_memory()
+            
             #split instructions into instruction and address
             #bus would move to address, take into cpu registers
             instr   = str(self.memory[self.progCounter])
