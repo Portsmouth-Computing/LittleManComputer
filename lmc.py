@@ -13,7 +13,7 @@ class Window(Frame):
       
         self.memory                 = [] 
         self.progCounter            = 0
-        self.instructionRegister    = -1
+        self.instruction_register    = -1
         self.addressRegister        = 0
         self.accumulator            = 0
         for i in range (100):
@@ -99,8 +99,9 @@ class Window(Frame):
                 lmcBranchAlways()
 
         print ("\n RUNNING \n")
-        while self.instructionRegister != 0:
-            
+        while self.instruction_register != 0:
+            self.update_counters()
+            self.update_memory()
             #split instructions into instruction and address
             #bus would move to address, take into cpu registers
             instr   = str(self.memory[self.progCounter])
@@ -117,34 +118,35 @@ class Window(Frame):
             self.progCounter += 1
             
             #push to registers
-            self.instructionRegister = int(opcode)
+            self.instruction_register = int(opcode)
             self.addressRegister     = int(address)
 
-            print ("Inst: ", self.instructionRegister)
+            print ("Inst: ", self.instruction_register)
             
             #interpret
-            if self.instructionRegister == 1:
+            if self.instruction_register == 1:
                 lmcAdd()
-            elif self.instructionRegister == 2:
+            elif self.instruction_register == 2:
                 lmcSub()
-            elif self.instructionRegister == 3:
+            elif self.instruction_register == 3:
                 lmcStore()
-            elif self.instructionRegister == 5:
+            elif self.instruction_register == 5:
                 lmcLoad()
-            elif self.instructionRegister == 6:
+            elif self.instruction_register == 6:
                 lmcBranchAlways()
-            elif self.instructionRegister == 7:
+            elif self.instruction_register == 7:
                 lmcBranchIfZero()
-            elif self.instructionRegister == 8:
+            elif self.instruction_register == 8:
                 lmcBranchIfZeroOrPositive()
-            elif self.instructionRegister == 9:
+            elif self.instruction_register == 9:
                 if self.addressRegister == 1:
                     lmcInput()
                 elif self.addressRegister == 2:
                     lmcOutput()
             else:
-                print ("UNRECOGNISED SYMBOL: ", self.instructionRegister)
+                print ("UNRECOGNISED SYMBOL: ", self.instruction_register)
             
+
     def init_window(self):
         """ Creates window and all the options"""
         self.master.title("LMC")
@@ -169,24 +171,33 @@ class Window(Frame):
 
 
     def update_counters(self):
+       
+        self.accvar = IntVar()
+        self.accvar.set(self.accumulator)
         self.accumulator_label = Label(self,text="Accumulator")
         self.accumulator_label.grid(row = 1, column = 4)
-        self.accumulator_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
+        self.accumulator_value = Label(self, textvariable = self.accvar, bg = 'grey')
         self.accumulator_value.grid(row = 2, column = 4)
 
+        self.progvar = IntVar()
+        self.progvar.set(self.progCounter)
         self.prog_label = Label(self, text="Progress")
         self.prog_label.grid(row=4, column=4)
-        self.prog_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
+        self.prog_value = Label(self, textvariable = self.progvar, bg = 'grey')
         self.prog_value.grid(row = 5, column = 4)
-        
+
+        self.addressvar = IntVar()
+        self.addressvar.set(self.addressRegister)
         self.address_label = Label(self, text="Current Address")
         self.address_label.grid(row = 7, column = 4)
-        self.address_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
+        self.address_value = Label(self, textvariable = self.addressvar, bg = 'grey')
         self.address_value.grid(row = 8, column = 4)
 
+        self.instruction_value = IntVar()
+        self.instruction_value.set(self.instruction_register)
         self.instruction_label = Label(self, text = "Instruction Register")
         self.instruction_label.grid(row = 10, column = 4)
-        self.instruction_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
+        self.instruction_value = Label(self, textvariable = self.instruction_value, bg = 'grey')
         self.instruction_value.grid(row = 11, column = 4)
         
     def update_memory(self):
