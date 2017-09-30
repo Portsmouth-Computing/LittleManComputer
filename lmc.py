@@ -43,18 +43,20 @@ class Window(Frame):
                             "OUT": 9,
                             "DAT": 4} #temp
 
-
     def load_instructions(self):
         """Loads Instructions Into Memory"""
 
-        def load_instruction(op, strAddress, location):
+        def load_instruction(op, strAddress, location): #int, str, int
             '''Loads up a single instruction'''
             memAddress = 0
             try:
                 memAddress = int(strAddress)
             except ValueError:
                 memAddress = self.labels[strAddress]
-            self.memory[location] = int(op + memAddress)
+
+            
+            self.memory[location] = int(str(op) + str(memAddress))
+            print ("Memory:", location, "op:", int(str(op) + str(memAddress)), "indv: ", op, strAddress )
         
         instructionList = self.textarea.get(1.0, END)
         instructionList = instructionList.split("\n")
@@ -65,9 +67,8 @@ class Window(Frame):
         instruction_ptr = 0
         for line in instructionList:
             words = line.split(" ")
-            if (len(words) == 2):
-                if not words[0] in self.commands:
-                    self.labels[words[0]] = instruction_ptr
+            if not words[0] in self.commands:
+                self.labels[words[0]] = instruction_ptr
             instruction_ptr += 1
 
         #second pass, actually set up the memory
@@ -102,6 +103,7 @@ class Window(Frame):
                     else: 
                         self.memory[memLocation] = int(word[2])    
                 else:
+                    print ("popped af")
                     words.pop(0)
                     parse(words, memLocation)
 
