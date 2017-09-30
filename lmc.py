@@ -19,7 +19,7 @@ class Window(Frame):
         self.labels                 = dict() #var name, program counter
         for i in range (100):
             self.memory.append(0)
-            
+    
         self.init_window()
         self.update_memory()
         self.update_counters()
@@ -39,7 +39,6 @@ class Window(Frame):
         for line in instructionList:
             print(line)
             words = line.split(" ")
-
 
             instruction = words[0]
             if instruction == "ADD":
@@ -65,12 +64,8 @@ class Window(Frame):
             else:
                 self.labels[instruction] = instruction_ptr
 
-
-
-
             instruction_ptr += 1
             
-        #in_file.close()
         print(self.memory)
         self.update_memory()
 
@@ -108,7 +103,6 @@ class Window(Frame):
 
         print ("\n RUNNING \n")
         while self.instructionRegister != 0:
-            
             #split instructions into instruction and address
             #bus would move to address, take into cpu registers
             instr   = str(self.memory[self.progCounter])
