@@ -16,6 +16,7 @@ class Window(Frame):
         self.instruction_register    = -1
         self.addressRegister        = 0
         self.accumulator            = 0
+        self.labels                 = dict() #var name, program counter
         for i in range (100):
             self.memory.append(0)
             
@@ -31,13 +32,15 @@ class Window(Frame):
             op += strAddress
             self.memory[location] = int(op)
         
-        in_file = self.textarea.get(1.0, END)
-        in_file = in_file.split("\n")
-        print(in_file)
+        instructionList = self.textarea.get(1.0, END)
+        instructionList = instructionList.split("\n")
+
         instruction_ptr = 0
-        for line in in_file:
+        for line in instructionList:
             print(line)
             words = line.split(" ")
+
+
             instruction = words[0]
             if instruction == "ADD":
                 load_instruction(1, words[1], instruction_ptr)
@@ -59,6 +62,11 @@ class Window(Frame):
                 load_instruction(9, "02", instruction_ptr)
             elif instruction == "HTL":
                 load_instruction(0, "00", instruction_ptr)
+            else:
+                self.labels[instruction] = instruction_ptr
+
+
+
 
             instruction_ptr += 1
             
@@ -206,7 +214,7 @@ class Window(Frame):
                 var = StringVar()
                 value_var = StringVar()
                 if y % 2 == 0:
-                    loc_var = int(y/2 * 10 + x)
+                    loc_var = int((y / 2) * 10 + x)
                     var.set("Address " + str(loc_var))
                     self.memory_label = Label(self, textvariable = var)
                     self.memory_label.grid(row = 1 +(y), column = 6+(x),ipadx = 5, ipady = 2 )
