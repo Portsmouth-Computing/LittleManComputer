@@ -61,6 +61,3 @@ class LMCParser:
             commands = line.split(" ")
             self.parse_line(commands, instruction_ptr, memory)
             instruction_ptr += 1
-
-
-

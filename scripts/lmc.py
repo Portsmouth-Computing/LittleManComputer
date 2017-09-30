@@ -20,25 +20,13 @@ class Window(Frame):
         self.instructionRegister    = -1
         self.addressRegister        = 0
         self.accumulator            = 0
-        self.labels                 = dict()
+
         for i in range (100):
             self.memory.append(0)
     
         self.init_window()
         self.update_memory()
         self.update_counters()
-
-        self.commands = {   "HTL": 0, 
-                            "ADD": 1,
-                            "SUB": 2,
-                            "STA": 3,
-                            "LDA": 5,
-                            "BRA": 6,
-                            "BRZ": 7,
-                            "BRP": 8,
-                            "INP": 9,
-                            "OUT": 9,
-                            "DAT": 4}
 
     def load_instructions(self):
         """Loads Instructions Into Memory"""
@@ -52,57 +40,6 @@ class Window(Frame):
 
         asmler = LMCParser()
         asmler.assemble(instructionList, self.memory)
-        '''
-#call object here
-
-        #first pass, find labels
-        instruction_ptr = 0
-        for line in instructionList:
-            words = line.split(" ")
-            if not words[0] in self.commands:
-                self.labels[words[0]] = instruction_ptr
-                print ("Found: ", words[0])
-            instruction_ptr += 1
-
-        #second pass, actually set up the memory
-        def load_instruction(op, strAddress, location): #int, str, int
-            #Loads up a single instruction
-            memAddress = 0
-            try:
-                memAddress = int(strAddress)
-            except ValueError:
-                memAddress = self.labels[strAddress]
-            self.memory[location] = int(str(op) + str(memAddress))
-
-        def parse(words, memLocation):
-            instruction = words[0]
-            if instruction == "INP":
-                load_instruction(9, "01", memLocation)
-            elif instruction == "OUT":
-                load_instruction(9, "02", memLocation)
-            elif instruction == "HLT":
-                load_instruction(0, "00", memLocation)
-            else:
-                if instruction in self.commands:
-                    load_instruction(self.commands[instruction], words[1], memLocation)
-                else:
-                    self.labels[instruction] = memLocation
-                    if (words[1] == "DAT"): #Dat, takes the form of NAME DAT INITAL VALUE
-                        if(len(words) == 2):
-                            self.memory[memLocation] = 0
-                        else: 
-                            self.memory[memLocation] = int(words[2])    
-                    else:
-                        words.pop(0)
-                        parse(words, memLocation)
-        
-        #loop through the commands, and translate them into machine machine
-        instruction_ptr = 0
-        for line in instructionList:
-            words = line.split(" ")
-            parse(words, instruction_ptr)
-            instruction_ptr += 1
-        '''
         #update the GUI
         self.update_memory()
 
