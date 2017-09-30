@@ -20,13 +20,12 @@ class Window(Frame):
       
         self.memory                 = [] 
         self.progCounter            = 0
-        self.instructionRegister    = -1
+        self.instruction_register    = -1
         self.addressRegister        = 0
         self.accumulator            = 0
         self.labels                 = dict()
         for i in range (100):
             self.memory.append(0)
-    
         self.init_window()
         self.update_memory()
         self.update_counters()
@@ -42,8 +41,18 @@ class Window(Frame):
                             "INP": 9,
                             "OUT": 9,
                             "DAT": 4} #temp
+        self.update_output()
+
 
     def load_instructions(self):
+        self.memory = []
+        for i in range (100):
+            self.memory.append(0)
+        self.progCounter            = 0
+        self.instruction_register    = -1
+        self.addressRegister        = 0
+        self.accumulator            = 0
+
         """Loads Instructions Into Memory"""
         
         instructionList = self.textarea.get(1.0, END)
@@ -130,11 +139,13 @@ class Window(Frame):
         def lmcStore():
             self.memory[self.addressRegister] = self.accumulator
             
-        def lmcInput():
-            self.accumulator = int(input("Enter input: "))
+        def lmcInput(self):
+            self.create_input()
+            #self.accumulator = int(input("Enter input: "))
             
-        def lmcOutput():
+        def lmcOutput(self):
             print ("Output:", self.accumulator)
+            self.update_output()
 
         def lmcBranchAlways():
             self.progCounter = self.addressRegister
@@ -148,7 +159,11 @@ class Window(Frame):
                 lmcBranchAlways()
 
         print ("\n RUNNING \n")
-        while self.instructionRegister != 0:
+
+        while self.instruction_register != 0:
+            self.update_counters()
+            self.update_memory()
+            
             #split instructions into instruction and address
             #bus would move to address, take into cpu registers
             instr   = str(self.memory[self.progCounter])
@@ -165,35 +180,35 @@ class Window(Frame):
             self.progCounter += 1
             
             #push to registers
-            self.instructionRegister = int(opcode)
+            self.instruction_register = int(opcode)
             self.addressRegister     = int(address)
 
-            print ("Inst: ", self.instructionRegister)
+            print ("Inst: ", self.instruction_register)
             
             #interpret
-            if self.instructionRegister == 1:
+            if self.instruction_register == 1:
                 lmcAdd()
-            elif self.instructionRegister == 2:
+            elif self.instruction_register == 2:
                 lmcSub()
-            elif self.instructionRegister == 3:
+            elif self.instruction_register == 3:
                 lmcStore()
-            elif self.instructionRegister == 5:
+            elif self.instruction_register == 5:
                 lmcLoad()
-            elif self.instructionRegister == 6:
+            elif self.instruction_register == 6:
                 lmcBranchAlways()
-            elif self.instructionRegister == 7:
+            elif self.instruction_register == 7:
                 lmcBranchIfZero()
-            elif self.instructionRegister == 8:
+            elif self.instruction_register == 8:
                 lmcBranchIfZeroOrPositive()
-            elif self.instructionRegister == 9:
+            elif self.instruction_register == 9:
                 if self.addressRegister == 1:
-                    lmcInput()
+                    lmcInput(self)
                 elif self.addressRegister == 2:
-                    lmcOutput()
+                    lmcOutput(self)
             else:
-                print ("UNRECOGNISED SYMBOL: ", self.instructionRegister)
+                print ("UNRECOGNISED SYMBOL: ", self.instruction_register)
             
-    def init_window(self):
+    def init_window(self):  
         """ Creates window and all the options"""
         self.master.title("LMC")
         self.pack(fill=BOTH, expand=1)
@@ -203,7 +218,6 @@ class Window(Frame):
         self.textarea = Text(self,width = 20, height = 35)
         #self.textarea.pack(expand=NO, fill ="y")
         self.textarea.grid(row = 1, column = 0, columnspan = 3, rowspan = 20)
-
         self.execute_button = Button(self, text = "Execute", command = self.run)
         self.execute_button.grid(row = 22, column = 0)
         self.reset_button = Button(self, text = "Reset", command = self.reset)
@@ -215,28 +229,43 @@ class Window(Frame):
         self.assemble = Button(self, text = "Load", command = self.load_instructions)
         self.assemble.grid(row = 23, column = 0)
 
-
-    def update_counters(self):
+    def update_counters(self):       
+        self.accvar = IntVar()
+        self.accvar.set(self.accumulator)
         self.accumulator_label = Label(self,text="Accumulator")
         self.accumulator_label.grid(row = 1, column = 4)
-        self.accumulator_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
+        self.accumulator_value = Label(self, textvariable = self.accvar, bg = 'grey')
         self.accumulator_value.grid(row = 2, column = 4)
 
+        self.progvar = IntVar()
+        self.progvar.set(self.progCounter)
         self.prog_label = Label(self, text="Progress")
         self.prog_label.grid(row=4, column=4)
-        self.prog_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
+        self.prog_value = Label(self, textvariable = self.progvar, bg = 'grey')
         self.prog_value.grid(row = 5, column = 4)
-        
+
+        self.addressvar = IntVar()
+        self.addressvar.set(self.addressRegister)
         self.address_label = Label(self, text="Current Address")
         self.address_label.grid(row = 7, column = 4)
-        self.address_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
+        self.address_value = Label(self, textvariable = self.addressvar, bg = 'grey')
         self.address_value.grid(row = 8, column = 4)
 
+        self.instruction_value = IntVar()
+        self.instruction_value.set(self.instruction_register)
         self.instruction_label = Label(self, text = "Instruction Register")
         self.instruction_label.grid(row = 10, column = 4)
-        self.instruction_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
+        self.instruction_value = Label(self, textvariable = self.instruction_value, bg = 'grey')
         self.instruction_value.grid(row = 11, column = 4)
-        
+
+    def update_output(self):
+        self.output_value = IntVar()
+        self.output_value.set(self.accumulator)
+        self.output_label = Label(self, text = "Output")
+        self.output_label.grid(row = 13, column = 4)
+        self.output_value = Label(self, textvariable = self.output_value, bg = 'grey')
+        self.output_value.grid(row = 14, column = 4)
+
     def update_memory(self):
         for x in range(0,10):
             for y in range(0,20):
@@ -251,6 +280,14 @@ class Window(Frame):
                     value_var.set(self.memory[loc_var])
                     self.memory_value = Label(self, textvariable = value_var, bg = 'grey')
                     self.memory_value.grid(row = 1 +(y), column = 6+(x))
+    
+    def create_input(self):
+        self.inputarea = Text(self, height = 1, width = 20)
+        self.inputbutton = Button(self, text = "Confirm Input")
+
+        self.inputarea.grid(row = 16, column = 4)
+        self.inputbutton.grid(row = 16, column = 5)
+
     def reset(self):
         self.textarea.delete(1.0, END)
         
