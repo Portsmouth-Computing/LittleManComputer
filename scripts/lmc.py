@@ -1,13 +1,8 @@
 from tkinter import *
-import random , time
-import parser
+from lmc_parser import LMCParser
+import random
+import time
 
-
-class Command():
-    def __init__(self):
-        self.label      = " "
-        self.command    = " "
-        self.address    = " "
 
 class Window(Frame):
 
@@ -52,9 +47,14 @@ class Window(Frame):
         instructionList.upper()
         instructionList = instructionList.split("\n")
 
-
         
         instructionList.pop(len(instructionList) - 1)
+
+        asmler = LMCParser()
+        asmler.assemble(instructionList, self.memory)
+        '''
+#call object here
+
         #first pass, find labels
         instruction_ptr = 0
         for line in instructionList:
@@ -66,7 +66,7 @@ class Window(Frame):
 
         #second pass, actually set up the memory
         def load_instruction(op, strAddress, location): #int, str, int
-            '''Loads up a single instruction'''
+            #Loads up a single instruction
             memAddress = 0
             try:
                 memAddress = int(strAddress)
@@ -102,7 +102,7 @@ class Window(Frame):
             words = line.split(" ")
             parse(words, instruction_ptr)
             instruction_ptr += 1
-            
+        '''
         #update the GUI
         self.update_memory()
 
