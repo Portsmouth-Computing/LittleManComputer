@@ -45,22 +45,9 @@ class Window(Frame):
 
     def load_instructions(self):
         """Loads Instructions Into Memory"""
-
-        def load_instruction(op, strAddress, location): #int, str, int
-            '''Loads up a single instruction'''
-            memAddress = 0
-            try:
-                memAddress = int(strAddress)
-            except ValueError:
-                memAddress = self.labels[strAddress]
-
-            
-            self.memory[location] = int(str(op) + str(memAddress))
-            print ("Memory:", location, "op:", int(str(op) + str(memAddress)), "indv: ", op, strAddress )
         
         instructionList = self.textarea.get(1.0, END)
         instructionList = instructionList.split("\n")
-
         
         instructionList.pop(len(instructionList) - 1)
         #first pass, find labels
@@ -68,10 +55,21 @@ class Window(Frame):
         for line in instructionList:
             words = line.split(" ")
             if not words[0] in self.commands:
+                print ("Found label: ", words[0], "with value", )
                 self.labels[words[0]] = instruction_ptr
             instruction_ptr += 1
 
         #second pass, actually set up the memory
+        def load_instruction(op, strAddress, location): #int, str, int
+            '''Loads up a single instruction'''
+            memAddress = 0
+            try:
+                memAddress = int(strAddress)
+            except ValueError:
+                memAddress = self.labels[strAddress]
+            self.memory[location] = int(str(op) + str(memAddress))
+            print ("Memory:", location, "op:", int(str(op) + str(memAddress)), "indv: ", op, memAddress )
+
         def parse(words, memLocation):
             instruction = words[0]
             if instruction == "ADD":
@@ -95,13 +93,13 @@ class Window(Frame):
             elif instruction == "HTL":
                 load_instruction(0, "00", memLocation)
             else:
-                print("WORDS FOR ELSE:", words)
                 self.labels[instruction] = memLocation
                 if (words[1] == "DAT"): #Dat, takes the form of NAME DAT INITAL VALUE
                     if(len(words) == 2):
                         self.memory[memLocation] = 0
                     else: 
-                        self.memory[memLocation] = int(word[2])    
+                        self.memory[memLocation] = int(words[2])    
+                        print ("Found data: ", words[2])
                 else:
                     print ("popped af")
                     words.pop(0)
@@ -114,7 +112,7 @@ class Window(Frame):
             parse(words, instruction_ptr)
             instruction_ptr += 1
             
-        print(self.memory)
+        #update the GUI
         self.update_memory()
 
 

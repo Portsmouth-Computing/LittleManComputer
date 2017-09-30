@@ -1,6 +1,6 @@
 INP
-STA 99
+STA test
 INP
 ADD 99
 OUT
-BRA 3
+test DAT 50
