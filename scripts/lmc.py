@@ -1,5 +1,7 @@
 from tkinter import *
 import random , time
+import parser
+
 
 class Command():
     def __init__(self):
@@ -41,7 +43,7 @@ class Window(Frame):
                             "BRP": 8,
                             "INP": 9,
                             "OUT": 9,
-                            "DAT": 4} #temp
+                            "DAT": 4}
 
     def load_instructions(self):
         """Loads Instructions Into Memory"""
@@ -49,6 +51,8 @@ class Window(Frame):
         instructionList = self.textarea.get(1.0, END)
         instructionList.upper()
         instructionList = instructionList.split("\n")
+
+
         
         instructionList.pop(len(instructionList) - 1)
         #first pass, find labels
@@ -72,37 +76,27 @@ class Window(Frame):
 
         def parse(words, memLocation):
             instruction = words[0]
-            if instruction == "ADD":
-                load_instruction(1, words[1], memLocation)
-            elif instruction == "SUB":
-                load_instruction(2, words[1], memLocation)
-            elif instruction == "STA":
-                load_instruction(3, words[1], memLocation)
-            elif instruction == "LDA":
-                load_instruction(5, words[1], memLocation)
-            elif instruction == "BRA": 
-                load_instruction(6, words[1], memLocation)
-            elif instruction == "BRZ": 
-                load_instruction(7, words[1], memLocation)
-            elif instruction == "BRP": 
-                load_instruction(8, words[1], memLocation)
-            elif instruction == "INP":
+            if instruction == "INP":
                 load_instruction(9, "01", memLocation)
             elif instruction == "OUT":
                 load_instruction(9, "02", memLocation)
             elif instruction == "HLT":
                 load_instruction(0, "00", memLocation)
             else:
-                self.labels[instruction] = memLocation
-                if (words[1] == "DAT"): #Dat, takes the form of NAME DAT INITAL VALUE
-                    if(len(words) == 2):
-                        self.memory[memLocation] = 0
-                    else: 
-                        self.memory[memLocation] = int(words[2])    
+                if instruction in self.commands:
+                    load_instruction(self.commands[instruction], words[1], memLocation)
                 else:
-                    words.pop(0)
-                    parse(words, memLocation)
-
+                    self.labels[instruction] = memLocation
+                    if (words[1] == "DAT"): #Dat, takes the form of NAME DAT INITAL VALUE
+                        if(len(words) == 2):
+                            self.memory[memLocation] = 0
+                        else: 
+                            self.memory[memLocation] = int(words[2])    
+                    else:
+                        words.pop(0)
+                        parse(words, memLocation)
+        
+        #loop through the commands, and translate them into machine machine
         instruction_ptr = 0
         for line in instructionList:
             words = line.split(" ")
