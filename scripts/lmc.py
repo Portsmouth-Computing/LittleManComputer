@@ -1,7 +1,6 @@
 from tkinter import *
 from lmc_parser import LMCParser
-import random
-import time
+
 
 class Window(Frame):
     """LMC"""
@@ -31,7 +30,6 @@ class Window(Frame):
 
     def run(self):
         '''Execute the code'''
-
         def lmcAdd():
             self.accumulator += self.memory[self.address_register]
 
@@ -134,8 +132,6 @@ class Window(Frame):
         self.reset_button.grid(row = 22, column = 1)
         self.burn_it_all = Button(self, text = "Exit", command = self.exit)
         self.burn_it_all.grid(row = 22, column = 2)
-        self.randmem = Button(self, text = "randmem", command = self.update_random_mem)
-        self.randmem.grid(row = 23, column = 2)
         self.assemble = Button(self, text = "Load", command = self.load_instructions)
         self.assemble.grid(row = 23, column = 0)
 
@@ -191,8 +187,6 @@ class Window(Frame):
                     self.memory_value = Label(self, textvariable = value_var, bg = 'grey')
                     self.memory_value.grid(row = 1 +(y), column = 6+(x))
 
-
-
     def reset(self):
         self.textarea.delete(1.0, END)
         self.reset_everything()
@@ -208,11 +202,6 @@ class Window(Frame):
 
     def exit(self):
         exit()
-
-    def update_random_mem(self):
-        for x in range(0,100):
-            self.memory[x] = random.randint(0, 999)
-        self.update_memory()
 
 def main():
     #Creates UI and starts
