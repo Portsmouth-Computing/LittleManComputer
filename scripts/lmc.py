@@ -9,18 +9,8 @@ class Window(Frame):
         Frame.__init__(self, master)
         #Frame.configure(self, bg = 'black')
         Frame.grid_columnconfigure(self, 3, minsize=20)#Add a spacer
-        Frame.grid_columnconfigure(self, 5, minsize=20)
-
         self.master = master
-
-        self.memory                 = []
-        self.program_counter        = 0
-        self.instruction_register   = -1
-        self.address_register       = 0
-        self.accumulator            = 0
-
-        for i in range (100):
-            self.memory.append(0)
+        self.reset_everything()
 
         self.init_window()
         self.update_memory()
@@ -28,13 +18,7 @@ class Window(Frame):
 
     def load_instructions(self):
         """Loads Instructions Into Memory"""
-        self.memory = []
-        for i in range (100):
-            self.memory.append(0)
-        self.progCounter            = 0
-        self.instruction_register   = -1
-        self.addressRegister        = 0
-        self.accumulator            = 0
+        self.reset_everything()
 
         instructionList = self.textarea.get(1.0, END)
         instructionList.upper()
@@ -66,13 +50,19 @@ class Window(Frame):
 
 
         def lmcInput(self):
-            self.create_input()
-            #self.accumulator = int(input("Enter input: "))
-            def handle_input(self):
-                self.accumulator = int(self.inputarea.get(1.0,END))
-                self.inputarea.delete(1.0, END)
-                self.delete(self.inputarea)
-                self.delete(self.inputbutton)
+            self.var = IntVar()
+            self.inputarea = Text(self, height = 1, width = 5)
+            self.inputbutton = Button(self, text = "Confirm",command=lambda: self.var.set(1))
+            self.inputarea.grid(row = 16, column = 4)
+            self.inputbutton.grid(row = 16, column = 5)
+
+            self.inputbutton.wait_variable(self.var)
+            print("Processing", self.var)
+            self.tempvar = self.inputarea.get(1.0,END)
+            self.accumulator = int(self.tempvar)
+            self.inputarea.delete(1.0, END)
+            self.update_counters()
+            self.update_memory()
 
         def lmcBranchAlways():
             self.program_counter = self.address_register
@@ -201,14 +191,21 @@ class Window(Frame):
                     value_var.set(self.memory[loc_var])
                     self.memory_value = Label(self, textvariable = value_var, bg = 'grey')
                     self.memory_value.grid(row = 1 +(y), column = 6+(x))
-    def create_input(self):
-        self.inputarea = Text(self, height = 1, width = 5)
-        self.inputbutton = Button(self, text = "Confirm Input")
-        self.inputarea.grid(row = 16, column = 4)
-        self.inputbutton.grid(row = 16, column = 5)
+
+
 
     def reset(self):
         self.textarea.delete(1.0, END)
+        self.reset_everything()
+
+    def reset_everything(self):
+        self.memory                 = []
+        self.program_counter        = 0
+        self.instruction_register   = -1
+        self.address_register       = 0
+        self.accumulator            = 0
+        for i in range (100):
+            self.memory.append(0)
 
     def exit(self):
         exit()
