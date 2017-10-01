@@ -19,8 +19,7 @@ class LMCParser:
         for line in command_list:
             words = line.split(" ")
             if not words[0] in self.commands:
-                self.labels[words[0]] = instruction_ptr
-                print ("Found: ", words[0])
+                self.labels[words[0]] = instruction_ptr #insert label
             instruction_ptr += 1
 
     def load_instruction(self, memory, op_code, ref_address, mem_location):
@@ -48,10 +47,10 @@ class LMCParser:
                 self.labels[instruction] = memory_location
                 if (line[1] == "DAT"): #Dat, takes the form of NAME DAT INITAL VALUE
                     if(len(line) == 2):
-                        memory[memory_location] = 0
+                        memory[memory_location] = 0 #a value is optional, so default to 0
                     else: 
                         memory[memory_location] = int(line[2])    
-                else:
+                else: #this means it is a label, so pop that out and reparse the line
                     line.pop(0)
                     self.parse_line(line, memory_location, memory)
 

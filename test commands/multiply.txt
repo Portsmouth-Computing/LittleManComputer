@@ -13,7 +13,7 @@ BRP begin
 LDA sum
 OUT
 HLT
-a DAT 0
-b DAT 0
-sum DAT 0
+a DAT 
+b DAT
+sum DAT
 one DAT 1

@@ -5,7 +5,7 @@ import time
 
 class Window(Frame):
 
-    """LMC""" 
+    """LMC"""
     def __init__(self, master=None):
         Frame.__init__(self, master)
         #Frame.configure(self, bg = 'black')
@@ -13,28 +13,28 @@ class Window(Frame):
         Frame.grid_columnconfigure(self, 5, minsize=20)
 
         self.master = master
-      
-        self.memory                 = [] 
-        self.progCounter            = 0
-        self.instructionRegister    = -1
-        self.addressRegister        = 0
+
+        self.memory                 = []
+        self.program_counter        = 0
+        self.instruction_register   = -1
+        self.address_register       = 0
         self.accumulator            = 0
 
         for i in range (100):
             self.memory.append(0)
-    
+
         self.init_window()
         self.update_memory()
         self.update_counters()
 
     def load_instructions(self):
         """Loads Instructions Into Memory"""
-        
+
         instructionList = self.textarea.get(1.0, END)
         instructionList.upper()
         instructionList = instructionList.split("\n") #split the string into individual instructions
 
-        
+
         instructionList.pop(len(instructionList) - 1) #get rid of the final char, which is random space for some reason
 
         asmler = LMCParser()
@@ -43,27 +43,28 @@ class Window(Frame):
         self.update_memory()
 
     def run(self):
-        """Execute the code"""
+        '''Execute the code'''
+
         def lmcAdd():
-            self.accumulator += self.memory[self.addressRegister]
-            
+            self.accumulator += self.memory[self.address_register]
+
         def lmcSub():
-            self.accumulator -= self.memory[self.addressRegister]
+            self.accumulator -= self.memory[self.address_register]
 
         def lmcLoad():
-            self.accumulator = self.memory[self.addressRegister]
+            self.accumulator = self.memory[self.address_register]
 
         def lmcStore():
-            self.memory[self.addressRegister] = self.accumulator
-            
+            self.memory[self.address_register] = self.accumulator
+
         def lmcInput():
             self.accumulator = int(input("Enter input: "))
-            
+
         def lmcOutput():
             print ("Output:", self.accumulator)
 
         def lmcBranchAlways():
-            self.progCounter = self.addressRegister
+            self.program_counter = self.address_register
 
         def lmcBranchIfZero():
             if self.accumulator == 0:
@@ -74,10 +75,10 @@ class Window(Frame):
                 lmcBranchAlways()
 
         print ("\n RUNNING \n")
-        while self.instructionRegister != 0:
+        while self.instruction_register != 0:
             #split instructions into instruction and address
             #bus would move to address, take into cpu registers
-            instr   = str(self.memory[self.progCounter])
+            instr   = str(self.memory[self.program_counter])
             if int(instr) == 0:
                 break
             opcode  = instr[0]
@@ -87,37 +88,37 @@ class Window(Frame):
             else:
                 address = instr[1]
 
-            self.progCounter += 1
-            
-            #push to registers
-            self.instructionRegister = int(opcode)
-            self.addressRegister     = int(address)
+            self.program_counter += 1
 
-            print ("Inst: ", self.instructionRegister)
-            
+            #push to registers
+            self.instruction_register = int(opcode)
+            self.address_register     = int(address)
+
+            print ("Inst: ", self.instruction_register)
+
             #interpret
-            if self.instructionRegister == 1:
+            if self.instruction_register == 1:
                 lmcAdd()
-            elif self.instructionRegister == 2:
+            elif self.instruction_register == 2:
                 lmcSub()
-            elif self.instructionRegister == 3:
+            elif self.instruction_register == 3:
                 lmcStore()
-            elif self.instructionRegister == 5:
+            elif self.instruction_register == 5:
                 lmcLoad()
-            elif self.instructionRegister == 6:
+            elif self.instruction_register == 6:
                 lmcBranchAlways()
-            elif self.instructionRegister == 7:
+            elif self.instruction_register == 7:
                 lmcBranchIfZero()
-            elif self.instructionRegister == 8:
+            elif self.instruction_register == 8:
                 lmcBranchIfZeroOrPositive()
-            elif self.instructionRegister == 9:
-                if self.addressRegister == 1:
+            elif self.instruction_register == 9:
+                if self.address_register == 1:
                     lmcInput()
-                elif self.addressRegister == 2:
+                elif self.address_register == 2:
                     lmcOutput()
             else:
-                print ("UNRECOGNISED SYMBOL: ", self.instructionRegister)
-            
+                print ("UNRECOGNISED SYMBOL: ", self.instruction_register)
+
     def init_window(self):
         """ Creates window and all the options"""
         self.master.title("LMC")
@@ -151,7 +152,7 @@ class Window(Frame):
         self.prog_label.grid(row=4, column=4)
         self.prog_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
         self.prog_value.grid(row = 5, column = 4)
-        
+
         self.address_label = Label(self, text="Current Address")
         self.address_label.grid(row = 7, column = 4)
         self.address_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
@@ -161,7 +162,7 @@ class Window(Frame):
         self.instruction_label.grid(row = 10, column = 4)
         self.instruction_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
         self.instruction_value.grid(row = 11, column = 4)
-        
+
     def update_memory(self):
         for x in range(0,10):
             for y in range(0,20):
@@ -178,13 +179,13 @@ class Window(Frame):
                     self.memory_value.grid(row = 1 +(y), column = 6+(x))
     def reset(self):
         self.textarea.delete(1.0, END)
-        
+
     def exit(self):
         exit()
 
     def update_random_mem(self):
         for x in range(0,100):
-            self.memory[x] = random.randint(0,999)
+            self.memory[x] = random.randint(0, 999)
         self.update_memory()
 
 def main():
@@ -196,6 +197,6 @@ def main():
     app = Window(master=root)
     #app.update_memory()
     app.mainloop()
-    
+
 if __name__ == "__main__":
     main()
