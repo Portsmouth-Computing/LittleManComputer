@@ -56,10 +56,14 @@ class LMCParser:
 
     def assemble(self, command_list, memory):
         '''Take the list of commands and converts it into Op code in memory'''
+        print("Finding labels")
         self.get_labels(command_list)
+        print ("Labels found")
 
         instruction_ptr = 0
+        print ("Translating")
         for line in command_list:
             commands = line.split(" ")
+            print ("Parsing,", commands)
             self.parse_line(commands, instruction_ptr, memory)
             instruction_ptr += 1
