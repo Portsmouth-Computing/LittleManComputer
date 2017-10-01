@@ -1,4 +1,5 @@
 class LMCParser:
+    '''Class to parse LMC instructions and assemble into machine code'''
     def __init__(self):
         self.commands = {   "HTL": 0, 
                             "ADD": 1,
@@ -44,7 +45,6 @@ class LMCParser:
             if instruction in self.commands:
                 self.load_instruction(memory, self.commands[instruction], line[1], memory_location)
             else:
-                self.labels[instruction] = memory_location
                 if (line[1] == "DAT"): #Dat, takes the form of NAME DAT INITAL VALUE
                     if(len(line) == 2):
                         memory[memory_location] = 0 #a value is optional, so default to 0

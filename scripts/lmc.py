@@ -4,8 +4,8 @@ import random
 import time
 
 class Window(Frame):
-
     """LMC"""
+
     def __init__(self, master=None):
         Frame.__init__(self, master)
         #Frame.configure(self, bg = 'black')
@@ -94,8 +94,6 @@ class Window(Frame):
             self.instruction_register = int(opcode)
             self.address_register     = int(address)
 
-            print ("Inst: ", self.instruction_register)
-
             #interpret
             if self.instruction_register == 1:
                 lmcAdd()
@@ -177,6 +175,7 @@ class Window(Frame):
                     value_var.set(self.memory[loc_var])
                     self.memory_value = Label(self, textvariable = value_var, bg = 'grey')
                     self.memory_value.grid(row = 1 +(y), column = 6+(x))
+                    
     def reset(self):
         self.textarea.delete(1.0, END)
 
