@@ -29,6 +29,13 @@ class Window(Frame):
 
     def load_instructions(self):
         """Loads Instructions Into Memory"""
+        self.memory = []
+        for i in range (100):
+            self.memory.append(0)
+        self.progCounter            = 0
+        self.instruction_register   = -1
+        self.addressRegister        = 0
+        self.accumulator            = 0
 
         instructionList = self.textarea.get(1.0, END)
         instructionList.upper()
@@ -61,6 +68,9 @@ class Window(Frame):
             self.accumulator = int(input("Enter input: "))
 
         def lmcOutput():
+            self.create_input()
+            #self.accumulator = int(input("Enter input: "))
+            def handle_input(self):
             print ("Output:", self.accumulator)
 
         def lmcBranchAlways():
