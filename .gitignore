@@ -50,3 +50,13 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### CodeBlocks ###
+# specific to CodeBlocks IDE
+*.layout
+*.depend
+
+# generated directories
+bin/
+obj/
+
+*.dll
