@@ -14,6 +14,7 @@ class LMCParser:
         self.labels = dict()
 
     def get_labels(self, command_list):
+        '''parse commands and extract the labels'''
         instruction_ptr = 0
         for line in command_list:
             words = line.split(" ")
@@ -32,11 +33,12 @@ class LMCParser:
         memory[mem_location] = int(str(op_code) + str(memory_address))
 
     def parse_line(self, line, memory_location, memory):
+        '''Parse a single line of instructions eg `BEGIN STA 50`'''
         instruction = line[0]
         if instruction == "INP":
             self.load_instruction(memory, 9, "01", memory_location)
         elif instruction == "OUT":
-            self.load_instruction(memory, 9, "02", memory_location)
+            self.load_instruction(memory, 9, "02", memory_location) #INP, OUT, and HLT are special cases, as they do not have an address to manip
         elif instruction == "HLT":
             self.load_instruction(memory, 0, "00", memory_location)
         else:
@@ -54,6 +56,7 @@ class LMCParser:
                     self.parse_line(line, memory_location, memory)
 
     def assemble(self, command_list, memory):
+        '''Take the list of commands and converts it into Op code in memory'''
         self.get_labels(command_list)
 
         instruction_ptr = 0

@@ -3,7 +3,6 @@ from lmc_parser import LMCParser
 import random
 import time
 
-
 class Window(Frame):
 
     """LMC""" 
@@ -33,10 +32,10 @@ class Window(Frame):
         
         instructionList = self.textarea.get(1.0, END)
         instructionList.upper()
-        instructionList = instructionList.split("\n")
+        instructionList = instructionList.split("\n") #split the string into individual instructions
 
         
-        instructionList.pop(len(instructionList) - 1)
+        instructionList.pop(len(instructionList) - 1) #get rid of the final char, which is random space for some reason
 
         asmler = LMCParser()
         asmler.assemble(instructionList, self.memory)
