@@ -5,7 +5,6 @@ import time
 
 class Window(Frame):
     """LMC"""
-
     def __init__(self, master=None):
         Frame.__init__(self, master)
         #Frame.configure(self, bg = 'black')
@@ -40,10 +39,7 @@ class Window(Frame):
         instructionList = self.textarea.get(1.0, END)
         instructionList.upper()
         instructionList = instructionList.split("\n") #split the string into individual instructions
-
-
         instructionList.pop(len(instructionList) - 1) #get rid of the final char, which is random space for some reason
-
         asmler = LMCParser()
         asmler.assemble(instructionList, self.memory)
         #update the GUI
@@ -64,14 +60,19 @@ class Window(Frame):
         def lmcStore():
             self.memory[self.address_register] = self.accumulator
 
-        def lmcInput():
-            self.accumulator = int(input("Enter input: "))
+        def lmcOutput(self):
+            print ("Output:", self.accumulator)
+            self.update_output()
 
-        def lmcOutput():
+
+        def lmcInput(self):
             self.create_input()
             #self.accumulator = int(input("Enter input: "))
             def handle_input(self):
-            print ("Output:", self.accumulator)
+                self.accumulator = int(self.inputarea.get(1.0,END))
+                self.inputarea.delete(1.0, END)
+                self.delete(self.inputarea)
+                self.delete(self.inputbutton)
 
         def lmcBranchAlways():
             self.program_counter = self.address_register
@@ -121,9 +122,9 @@ class Window(Frame):
                 lmcBranchIfZeroOrPositive()
             elif self.instruction_register == 9:
                 if self.address_register == 1:
-                    lmcInput()
+                    lmcInput(self)
                 elif self.address_register == 2:
-                    lmcOutput()
+                    lmcOutput(self)
             else:
                 print ("UNRECOGNISED SYMBOL: ", self.instruction_register)
 
@@ -158,14 +159,14 @@ class Window(Frame):
         self.accumulator_value.grid(row = 2, column = 4)
 
         self.progvar = IntVar()
-        self.progvar.set(self.progCounter)
+        self.progvar.set(self.program_counter)
         self.prog_label = Label(self, text="Progress")
         self.prog_label.grid(row=4, column=4)
         self.prog_value = Label(self, textvariable = self.progvar, bg = 'grey')
         self.prog_value.grid(row = 5, column = 4)
 
         self.addressvar = IntVar()
-        self.addressvar.set(self.addressRegister)
+        self.addressvar.set(self.address_register)
         self.address_label = Label(self, text="Current Address")
         self.address_label.grid(row = 7, column = 4)
         self.address_value = Label(self, textvariable = self.addressvar, bg = 'grey')
@@ -200,7 +201,12 @@ class Window(Frame):
                     value_var.set(self.memory[loc_var])
                     self.memory_value = Label(self, textvariable = value_var, bg = 'grey')
                     self.memory_value.grid(row = 1 +(y), column = 6+(x))
-                    
+    def create_input(self):
+        self.inputarea = Text(self, height = 1, width = 5)
+        self.inputbutton = Button(self, text = "Confirm Input")
+        self.inputarea.grid(row = 16, column = 4)
+        self.inputbutton.grid(row = 16, column = 5)
+
     def reset(self):
         self.textarea.delete(1.0, END)
 
