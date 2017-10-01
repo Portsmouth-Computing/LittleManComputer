@@ -139,27 +139,42 @@ class Window(Frame):
         self.assemble = Button(self, text = "Load", command = self.load_instructions)
         self.assemble.grid(row = 23, column = 0)
 
-
-    def update_counters(self):
+    def update_counters(self):       
+        self.accvar = IntVar()
+        self.accvar.set(self.accumulator)
         self.accumulator_label = Label(self,text="Accumulator")
         self.accumulator_label.grid(row = 1, column = 4)
-        self.accumulator_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
+        self.accumulator_value = Label(self, textvariable = self.accvar, bg = 'grey')
         self.accumulator_value.grid(row = 2, column = 4)
 
+        self.progvar = IntVar()
+        self.progvar.set(self.progCounter)
         self.prog_label = Label(self, text="Progress")
         self.prog_label.grid(row=4, column=4)
-        self.prog_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
+        self.prog_value = Label(self, textvariable = self.progvar, bg = 'grey')
         self.prog_value.grid(row = 5, column = 4)
 
+        self.addressvar = IntVar()
+        self.addressvar.set(self.addressRegister)
         self.address_label = Label(self, text="Current Address")
         self.address_label.grid(row = 7, column = 4)
-        self.address_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
+        self.address_value = Label(self, textvariable = self.addressvar, bg = 'grey')
         self.address_value.grid(row = 8, column = 4)
 
+        self.instruction_value = IntVar()
+        self.instruction_value.set(self.instruction_register)
         self.instruction_label = Label(self, text = "Instruction Register")
         self.instruction_label.grid(row = 10, column = 4)
-        self.instruction_value = Label(self, text = "<<<Insert Value here>>>", bg = 'grey')
+        self.instruction_value = Label(self, textvariable = self.instruction_value, bg = 'grey')
         self.instruction_value.grid(row = 11, column = 4)
+
+    def update_output(self):
+        self.output_value = IntVar()
+        self.output_value.set(self.accumulator)
+        self.output_label = Label(self, text = "Output")
+        self.output_label.grid(row = 13, column = 4)
+        self.output_value = Label(self, textvariable = self.output_value, bg = 'grey')
+        self.output_value.grid(row = 14, column = 4)
 
     def update_memory(self):
         for x in range(0,10):
