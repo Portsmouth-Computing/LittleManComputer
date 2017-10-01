@@ -30,7 +30,6 @@ class Window(Frame):
 
     def run(self):
         '''Execute the code'''
-
         def lmcAdd():
             self.accumulator += self.memory[self.address_register]
 
