@@ -1,0 +1,26 @@
+        INP 
+        STA varA
+        STA constA
+        INP
+        STA varB   
+        STA constB
+loop    LDA varA
+        SUB one
+        BRZ bBig 
+        STA varA
+        LDA varB
+        SUB one 
+        BRZ aBig 
+        STA varB
+        BRA loop
+aBig    LDA constA
+        OUT
+        HLT
+bBig    LDA constB
+        OUT
+        HLT
+varA    DAT 0
+varB    DAT 0
+constA  DAT 0
+constB  DAT 0
+one     DAT 1

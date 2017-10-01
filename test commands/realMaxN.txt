@@ -1,0 +1,13 @@
+        INP
+        STA FIRST
+        INP
+        STA SECOND
+        SUB FIRST
+        BRP HIGHER
+        LDA FIRST
+        BRA DONE
+HIGHER  LDA SECOND
+DONE    OUT
+        HLT
+FIRST   DAT
+SECOND  DAT
