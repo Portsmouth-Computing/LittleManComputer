@@ -65,6 +65,8 @@
 		<Unit filename="src/Utilities.h" />
 		<Unit filename="src/gui/TextBox.cpp" />
 		<Unit filename="src/gui/TextBox.h" />
+		<Unit filename="src/lmc/LittleManComputer.cpp" />
+		<Unit filename="src/lmc/LittleManComputer.h" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
