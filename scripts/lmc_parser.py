@@ -1,3 +1,6 @@
+def remove_empty(arr):
+    arr = filter(None, arr)
+
 class LMCParser:
     '''Class to parse LMC instructions and assemble into machine code'''
     def __init__(self):
@@ -19,6 +22,7 @@ class LMCParser:
         instruction_ptr = 0
         for line in command_list:
             words = line.split(" ")
+            remove_empty(words)
             if not words[0] in self.commands:
                 self.labels[words[0]] = instruction_ptr #insert label
             instruction_ptr += 1
@@ -34,6 +38,7 @@ class LMCParser:
 
     def parse_line(self, line, memory_location, memory):
         '''Parse a single line of instructions eg `BEGIN STA 50`'''
+        remove_empty(line)
         instruction = line[0]
         if instruction == "INP":
             self.load_instruction(memory, 9, "01", memory_location)
