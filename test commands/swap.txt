@@ -1,0 +1,20 @@
+        BRA main 
+swap    LDA A 
+        STA Temp 
+        LDA B 
+        STA A 
+        LDA Temp 
+        STA B
+        BRA end  
+main    INP 
+        STA A 
+        INP 
+        STA B
+        BRA swap 
+end     LDA A
+        OUT 
+        LDA B
+        OUT
+A       DAT 0
+B       DAT 0
+Temp    DAT 0

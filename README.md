@@ -17,7 +17,7 @@ Modern computers contain a processor which executes instructions and memory whic
 | Branch If Positive | BRP      | 8xx           | Jumps to the instruction at address xx, given the value  in the accumulator is 0, or greater | BRP 05         |
 | Input              | INP      | 901           | Prompts user for input, store in accumulator                                                 | INP            |
 | Output             | OUT      | 902           | Outputs value currently in accumulator                                                       | OUT            |
-| Data               | DAT      | -             | ???                                                                                          | VarName DAT 50 |
+| Data               | DAT      | -             | Reserves a place in memory for a variable, followed by the initial value of said var         | VarName DAT 50 |
 
 ### How to use LMC
 1. The 100 memory addresses in the computer memory are numbered 0 to 99 and can each contain a 'machine code' instruction or data.

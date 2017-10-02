@@ -1,0 +1,31 @@
+        BRA     main   
+Max     LDA     CompA 
+        SUB     CompB
+        BRP     CompABig
+ABig    LDA     CompA 
+        STA     CompRes 
+BBig    LDA     CompB 
+        STA     CompRes 
+Swap    LDA     CompB 
+        
+main    INP
+        STA     VarA
+        INP
+        STA     VarB 
+        INP 
+        STA     VarC
+        INP 
+        STA     VarD
+
+
+
+
+
+        
+VarA    DAT     0
+VarB    DAT     0
+VarC    DAT     0
+VarD    DAT     0
+CompA   DAT     0
+CompB   DAT     0
+CompRes DAT     0

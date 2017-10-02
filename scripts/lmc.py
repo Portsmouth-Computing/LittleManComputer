@@ -43,11 +43,11 @@ class Window(Frame):
             self.memory[self.address_register] = self.accumulator
 
         def lmcOutput(self):
-            print ("Output:", self.accumulator)
             self.update_output()
 
 
         def lmcInput(self):
+            print ("Please input into the input box")
             self.var = IntVar()
             self.inputarea = Text(self, height = 1, width = 5)
             self.inputbutton = Button(self, text = "Confirm",command=lambda: self.var.set(1))
@@ -55,7 +55,7 @@ class Window(Frame):
             self.inputbutton.grid(row = 16, column = 5)
 
             self.inputbutton.wait_variable(self.var)
-            print("Processing", self.var)
+            #print("Processing", self.var)
             self.tempvar = self.inputarea.get(1.0,END)
             self.accumulator = int(self.tempvar)
             self.inputarea.delete(1.0, END)
@@ -73,7 +73,6 @@ class Window(Frame):
             if self.accumulator >= 0:
                 lmcBranchAlways()
 
-        print ("\n RUNNING \n")
         while self.instruction_register != 0:
             #split instructions into instruction and address
             #bus would move to address, take into cpu registers
@@ -205,8 +204,6 @@ class Window(Frame):
         exit()
 
 def main():
-    print ("\n\nLITTLE MAN COMPUTER\n\n")
-
     #Creates UI and starts
     root = Tk()
     root.geometry("1100x650")
