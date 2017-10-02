@@ -57,7 +57,7 @@ class LMCParser:
                         memory[memory_location] = int(line[2])    
                 else: #this means it is a label, so pop that out and reparse the line
                     line.pop(0)
-                    self.parse_line(line, memory_location, memory)
+                    self.parse_line(line, memory_location, memory)  #recursion :^)
 
     def assemble(self, command_list, memory):
         '''Take the list of commands and converts it into Op code in memory'''
