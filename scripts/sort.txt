@@ -1,0 +1,18 @@
+        INP
+        STA     VarA
+        INP
+        STA     VarB 
+        INP 
+        STA     VarC
+        INP 
+        STA     VarD
+
+
+
+
+
+        
+VarA    DAT     0
+VarB    DAT     0
+VarC    DAT     0
+VarD    DAT     0
