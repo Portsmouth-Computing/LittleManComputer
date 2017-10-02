@@ -35,6 +35,10 @@ $RECYCLE.BIN/
 # Thumbnails
 ._*
 
+# Byte-compiled / optimized / DLL files
+
+*.py[cod]
+
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
@@ -60,3 +64,4 @@ bin/
 obj/
 
 *.dll
+scripts/__pycache__
