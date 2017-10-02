@@ -36,7 +36,7 @@ $RECYCLE.BIN/
 ._*
 
 # Byte-compiled / optimized / DLL files
-__pycache__/
+
 *.py[cod]
 
 # Files that might appear in the root of a volume
@@ -62,5 +62,6 @@ Temporary Items
 # generated directories
 bin/
 obj/
+scripts/__pychace__/
 
 *.dll
