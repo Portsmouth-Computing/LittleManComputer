@@ -62,6 +62,6 @@ Temporary Items
 # generated directories
 bin/
 obj/
-scripts/__pychace__/
 
 *.dll
+scripts/__pycache__
