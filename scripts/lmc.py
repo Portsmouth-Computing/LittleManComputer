@@ -42,11 +42,28 @@ class Window(Frame):
         def lmcStore():
             self.memory[self.address_register] = self.accumulator
 
-        def lmcOutput(self):
+        def lmcBranchAlways():
+            self.program_counter = self.address_register
+
+        def lmcBranchIfZero():
+            if self.accumulator == 0:
+                lmcBranchAlways()
+
+        def lmcBranchIfZeroOrPositive():
+            if self.accumulator >= 0:
+                lmcBranchAlways()
+
+        def lmcOutput():
+            print ("Outpit:", self.accumulator)
             self.update_output()
 
-
-        def lmcInput(self):
+        def lmcIO():
+            if self.address_register == 1:
+                lmcInput()
+            elif self.address_register == 2:
+                lmcOutput()
+    
+        def lmcInput():
             print ("Please input into the input box")
             self.var = IntVar()
             self.inputarea = Text(self, height = 1, width = 5)
@@ -62,16 +79,16 @@ class Window(Frame):
             self.update_counters()
             self.update_memory()
 
-        def lmcBranchAlways():
-            self.program_counter = self.address_register
-
-        def lmcBranchIfZero():
-            if self.accumulator == 0:
-                lmcBranchAlways()
-
-        def lmcBranchIfZeroOrPositive():
-            if self.accumulator >= 0:
-                lmcBranchAlways()
+        instruction_list = [
+            lmcAdd,     #1
+            lmcSub,     #2
+            lmcStore,   #3
+            lmcIO,      #4
+            lmcLoad,    #5
+            lmcBranchAlways,    #6
+            lmcBranchIfZero,    #7
+            lmcBranchIfZeroOrPositive,  #8
+            lmcIO]      #8
 
         while self.instruction_register != 0:
             #split instructions into instruction and address
@@ -92,6 +109,12 @@ class Window(Frame):
             self.instruction_register = int(opcode)
             self.address_register     = int(address)
 
+            print("OpCode: ", self.program_counter, self.instruction_register, self.address_register)
+            instruction_list[self.instruction_register - 1]()
+
+
+            '''
+            
             #interpret
             if self.instruction_register == 1:
                 lmcAdd()
@@ -109,11 +132,12 @@ class Window(Frame):
                 lmcBranchIfZeroOrPositive()
             elif self.instruction_register == 9:
                 if self.address_register == 1:
-                    lmcInput(self)
+                    lmcInput()
                 elif self.address_register == 2:
-                    lmcOutput(self)
+                    lmcOutput()
             else:
                 print ("UNRECOGNISED SYMBOL: ", self.instruction_register)
+            '''
 
     def init_window(self):
         """ Creates window and all the options"""
