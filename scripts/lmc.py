@@ -19,6 +19,7 @@ class Window(Frame):
         """Loads Instructions Into Memory"""
         self.reset_everything()
 
+
         instructionList = self.textarea.get(1.0, END)
         instructionList.upper()
         instructionList = instructionList.split("\n") #split the string into individual instructions
@@ -54,7 +55,6 @@ class Window(Frame):
                 lmcBranchAlways()
 
         def lmcOutput():
-            print ("Outpit:", self.accumulator)
             self.update_output()
 
         def lmcIO():
@@ -64,7 +64,6 @@ class Window(Frame):
                 lmcOutput()
     
         def lmcInput():
-            print ("Please input into the input box")
             self.var = IntVar()
             self.inputarea = Text(self, height = 1, width = 5)
             self.inputbutton = Button(self, text = "Confirm",command=lambda: self.var.set(1))
@@ -109,7 +108,7 @@ class Window(Frame):
             self.instruction_register = int(opcode)
             self.address_register     = int(address)
 
-            print("OpCode: ", self.program_counter, self.instruction_register, self.address_register)
+            #print("OpCode: ", self.program_counter, self.instruction_register, self.address_register)
             instruction_list[self.instruction_register - 1]()
 
 
@@ -195,6 +194,7 @@ class Window(Frame):
         self.output_label.grid(row = 13, column = 4)
         self.output_value = Label(self, textvariable = self.output_value, bg = 'grey')
         self.output_value.grid(row = 14, column = 4)
+        self.update_counters()
 
     def update_memory(self):
         for x in range(0,10):
@@ -223,6 +223,10 @@ class Window(Frame):
         self.accumulator            = 0
         for i in range (100):
             self.memory.append(0)
+        self.update_counters()
+        self.update_memory()
+        self.update_output()
+
 
     def exit(self):
         exit()
