@@ -2,6 +2,12 @@
 package lmc;
 import java.util.HashMap;
 
+/**
+ * Converts a string of commands into bytecode in memory
+ * @author      Matthew Hopson
+ * @version     1.0
+ * @since       1.0
+ */
 public class Assembler {
     private int[] memory;
     private HashMap<String, Integer> commands;
@@ -35,9 +41,9 @@ public class Assembler {
 
     /**
      * Loads a single instruction into memory
-     * @param memoryLocation the location in memory to load the instruction into
-     * @param opcode the opcode of the instruction
-     * @param address the memory address to load the instruction into
+     * @param memoryLocation    the location in memory to load the instruction into
+     * @param opcode            the opcode of the instruction
+     * @param address           the memory address to load the instruction into
      */
     private void loadInstruction(int memoryLocation, int opcode, String address)
     {

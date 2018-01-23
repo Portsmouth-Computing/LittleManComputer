@@ -4,6 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
+/**
+ * Utility functions
+ * @author      Matthew Hopson
+ * @version     1.0
+ * @since       1.0
+ */
 public class Util
 {
     static String readFile(String filename)
