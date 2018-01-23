@@ -1,7 +1,6 @@
-package lmc;
 
+package lmc;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Assembler {
     private int[] memory;
@@ -12,6 +11,10 @@ public class Assembler {
         commands = createCommandList();
     }
 
+    /**
+     * Creates a hash map of instructions in the LMC with their corresponding opcodes
+     * @return hash map of commands in the LMC
+     */
     private HashMap<String, Integer> createCommandList()
     {
         HashMap<String, Integer> commands = new HashMap<>();
@@ -30,6 +33,12 @@ public class Assembler {
         return commands;
     }
 
+    /**
+     * Loads a single instruction into memory
+     * @param memoryLocation the location in memory to load the instruction into
+     * @param opcode the opcode of the instruction
+     * @param address the memory address to load the instruction into
+     */
     private void loadInstruction(int memoryLocation, int opcode, String address)
     {
         String opcodeString = String.valueOf(opcode);
@@ -37,6 +46,10 @@ public class Assembler {
         memory[memoryLocation] = Integer.parseInt(opcodeString);
     }
 
+    /**
+     * Parses a line of the inputted  and puts it into memory
+     * @param instructionPointer the memory location to load the line into
+     */
     private void parseLine(int instructionPointer, String[] commandList)
     {
         String opcodeString = commandList[0];
@@ -72,6 +85,10 @@ public class Assembler {
         }
     }
 
+    /**
+     * Converts text file into a list of opcodes in "memory"
+     * @param file the name of the file to assemble
+     */
     public void assemble(String file)
     {
         String data = Util.readFile(file);

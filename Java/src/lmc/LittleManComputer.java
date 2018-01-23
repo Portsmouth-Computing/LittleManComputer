@@ -21,6 +21,9 @@ public class LittleManComputer
         assembler.assemble(file);
     }
 
+    /**
+     * runs the computer
+     */
     public void run()
     {
         while(instructionRegister != 0) {
@@ -31,6 +34,10 @@ public class LittleManComputer
         }
     }
 
+    /**
+     * Loads the next instruction into the registers
+     * @return whether or not it is the end of the instructions
+     */
     private boolean fetchNextInstruction()
     {
         int opcode = memory[programCounter++];
