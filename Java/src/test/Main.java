@@ -7,6 +7,6 @@ public class Main
 {
     public static void main(String[] args)
     {
-        LittleManComputer computer = new LittleManComputer("test.lmc");
+        new LittleManComputer("test.lmc").run();
     }
 }

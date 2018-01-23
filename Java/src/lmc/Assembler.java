@@ -18,7 +18,7 @@ public class Assembler {
         commands.put("HLT", 0);
         commands.put("ADD", 1);
         commands.put("SUB", 2);
-        commands.put("STA", 4);
+        commands.put("STA", 3);
         commands.put("LDA", 5);
         commands.put("BRA", 6);
         commands.put("BRZ", 7);
