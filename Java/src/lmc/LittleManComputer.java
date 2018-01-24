@@ -13,18 +13,19 @@ import java.util.logging.ConsoleHandler;
 public final class LittleManComputer
 {
     int[] memory;
-    Registers register = new Registers();
+    Registers register;
+    UserInterface userInterface;
 
     final Scanner consoleInput;
 
     public LittleManComputer(String file)
     {
-        register        = new Registers();
-        consoleInput    = new Scanner(System.in);
         memory          = new int[100]; //LMC has 100 memory locations
+        register        = new Registers();
+        userInterface   = new UserInterface(memory, register);
+        consoleInput    = new Scanner(System.in);
 
-        Assembler assembler = new Assembler(memory);
-        assembler.assemble(file);
+        new Assembler(memory).assemble(file);
     }
 
     /**
