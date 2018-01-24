@@ -11,10 +11,12 @@ import java.util.HashMap;
 public class Assembler {
     private int[] memory;
     private HashMap<String, Integer> commands;
+    private HashMap<String, Integer> labels;
 
     public Assembler(int[] memory) {
         this.memory = memory;
         commands = createCommandList();
+        labels = new HashMap<>();
     }
 
     /**
@@ -91,12 +93,18 @@ public class Assembler {
         }
     }
 
+    private void findLabels(String[] commandList)
+    {
+        
+    }
+
     /**
      * Converts text file into a list of opcodes in "memory"
      * @param file the name of the file to assemble
      */
     public void assemble(String file)
     {
+        findLabels();
         String data = Util.readFile(file);
         String[] commandList = data.split("[\\r\\n]+");
 

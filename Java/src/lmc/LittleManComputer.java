@@ -1,5 +1,9 @@
 package lmc;
 
+import java.io.Console;
+import java.util.Scanner;
+import java.util.logging.ConsoleHandler;
+
 /**
  * The LittleManComputer itself
  * @author      Matthew Hopson
@@ -15,13 +19,17 @@ public class LittleManComputer
     int addressRegister;
     int accumulator;
 
+    Scanner consoleInput;
+
     public LittleManComputer(String file)
     {
-        memory = new int[100]; //LMC has 100 memory locations
+        consoleInput    = new Scanner(System.in);
+        memory          = new int[100]; //LMC has 100 memory locations
         programCounter = 0;
         instructionRegister = -1;
         addressRegister = 0;
         accumulator = 0;
+
 
         Assembler assembler = new Assembler(memory);
         assembler.assemble(file);
@@ -38,6 +46,10 @@ public class LittleManComputer
             }
             executeInstruction();
             System.out.printf("Instruction: %d, Address: %d\n", instructionRegister, addressRegister);
+        }
+
+        for (int i  = 0; i < 100; i++) {
+            System.out.printf("Memory %d: %d\n", i, memory[i]);
         }
     }
 
@@ -63,37 +75,40 @@ public class LittleManComputer
 
     private void add()
     {
-
+        accumulator += memory[addressRegister];
     }
 
     private void subtract()
     {
-
+        accumulator -= memory[addressRegister];
     }
 
     private void store()
     {
-
+        memory[addressRegister] = accumulator;
     }
 
     private void load()
     {
-
+        accumulator = memory[addressRegister];
     }
 
     private void branch(boolean condition)
     {
-
+        if (condition) {
+            //TODO
+        }
     }
 
     private void input()
     {
-
+        System.out.print("Please enter a value: ");
+        accumulator = consoleInput.nextInt();
     }
 
     private  void output()
     {
-
+        System.out.println("Accumulator: " + accumulator);
     }
 
 

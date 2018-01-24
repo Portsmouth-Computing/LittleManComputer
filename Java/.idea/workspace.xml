@@ -12,11 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Assembler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Assembler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/lmc/Assembler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2058">
-              <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+            <state relative-caret-position="147">
+              <caret line="97" column="8" lean-forward="true" selection-start-line="97" selection-start-column="8" selection-end-line="97" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -34,11 +34,33 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LittleManComputer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LittleManComputer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/lmc/LittleManComputer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="66" column="5" lean-forward="false" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+            <state relative-caret-position="1376">
+              <caret line="92" column="19" lean-forward="false" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1896#1897#0" expanded="true" />
+                <element signature="e#1950#1951#0" expanded="true" />
+                <element signature="e#1985#1986#0" expanded="true" />
+                <element signature="e#2039#2040#0" expanded="true" />
+                <element signature="e#2071#2072#0" expanded="true" />
+                <element signature="e#2124#2125#0" expanded="true" />
+                <element signature="e#2155#2156#0" expanded="true" />
+                <element signature="e#2208#2209#0" expanded="true" />
+                <element signature="e#2488#2489#0" expanded="true" />
+                <element signature="e#2553#2554#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.lmc" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.lmc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -73,10 +95,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/test/Main.java" />
-        <option value="$PROJECT_DIR$/src/lmc/Assembler.java" />
         <option value="$PROJECT_DIR$/src/lmc/Util.java" />
         <option value="$PROJECT_DIR$/src/lmc/Command.java" />
         <option value="$PROJECT_DIR$/src/lmc/LittleManComputer.java" />
+        <option value="$PROJECT_DIR$/src/lmc/Assembler.java" />
       </list>
     </option>
   </component>
@@ -127,6 +149,12 @@
               <item name="Java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="lmc" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LittleManComputer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -277,12 +305,12 @@
       <workItem from="1516742010314" duration="337000" />
       <workItem from="1516742517858" duration="3001000" />
       <workItem from="1516745552929" duration="3363000" />
-      <workItem from="1516781630453" duration="3917000" />
+      <workItem from="1516781630453" duration="4989000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10618000" />
+    <option name="totallyTimeSpent" value="11690000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -297,7 +325,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -350,7 +378,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="63">
           <caret line="3" column="31" lean-forward="false" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1896#1897#0" expanded="true" />
+            <element signature="e#1950#1951#0" expanded="true" />
+            <element signature="e#1985#1986#0" expanded="true" />
+            <element signature="e#2039#2040#0" expanded="true" />
+            <element signature="e#2071#2072#0" expanded="true" />
+            <element signature="e#2124#2125#0" expanded="true" />
+            <element signature="e#2155#2156#0" expanded="true" />
+            <element signature="e#2208#2209#0" expanded="true" />
+            <element signature="e#2488#2489#0" expanded="true" />
+            <element signature="e#2553#2554#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -384,7 +424,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1896#1897#0" expanded="true" />
+            <element signature="e#1950#1951#0" expanded="true" />
+            <element signature="e#1985#1986#0" expanded="true" />
+            <element signature="e#2039#2040#0" expanded="true" />
+            <element signature="e#2071#2072#0" expanded="true" />
+            <element signature="e#2124#2125#0" expanded="true" />
+            <element signature="e#2155#2156#0" expanded="true" />
+            <element signature="e#2208#2209#0" expanded="true" />
+            <element signature="e#2488#2489#0" expanded="true" />
+            <element signature="e#2553#2554#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -443,11 +495,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lmc/Assembler.java">
+    <entry file="file://$PROJECT_DIR$/test.lmc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2058">
-          <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+        <state relative-caret-position="105">
+          <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lmc/LittleManComputer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1376">
+          <caret line="92" column="19" lean-forward="false" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1896#1897#0" expanded="true" />
+            <element signature="e#1950#1951#0" expanded="true" />
+            <element signature="e#1985#1986#0" expanded="true" />
+            <element signature="e#2039#2040#0" expanded="true" />
+            <element signature="e#2071#2072#0" expanded="true" />
+            <element signature="e#2124#2125#0" expanded="true" />
+            <element signature="e#2155#2156#0" expanded="true" />
+            <element signature="e#2208#2209#0" expanded="true" />
+            <element signature="e#2488#2489#0" expanded="true" />
+            <element signature="e#2553#2554#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -459,10 +531,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lmc/LittleManComputer.java">
+    <entry file="file://$PROJECT_DIR$/src/lmc/Assembler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="66" column="5" lean-forward="false" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+        <state relative-caret-position="147">
+          <caret line="97" column="8" lean-forward="true" selection-start-line="97" selection-start-column="8" selection-end-line="97" selection-end-column="8" />
           <folding />
         </state>
       </provider>
