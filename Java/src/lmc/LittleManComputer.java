@@ -105,22 +105,38 @@ public class LittleManComputer
     {
         switch (instructionRegister) {
             case 1:
+                add();
                 break;
             case 2:
+                subtract();
                 break;
             case 3:
+                store();
                 break;
             case 4:
+                System.out.println("Unknown command");
                 break;
             case 5:
+                load();
                 break;
             case 6:
+                branch(true);
                 break;
             case 7:
+                branch(accumulator == 0);
                 break;
             case 8:
+                branch(accumulator > 0);
                 break;
             case 9:
+                switch (addressRegister) {
+                    case 1:
+                        input();
+                        break;
+                    case 2:
+                        output();
+                        break;
+                }
                 break;
         }
     }
