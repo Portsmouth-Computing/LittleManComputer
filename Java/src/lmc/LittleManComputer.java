@@ -66,7 +66,13 @@ public class LittleManComputer
         if (instruction.equals("0")) {
             return false;
         }
-        String address     = "" + opString.charAt(1) + opString.charAt(2);
+        System.out.println(opString);
+        String address;
+        try {
+            address = "" + opString.charAt(1) + opString.charAt(2);
+        } catch (StringIndexOutOfBoundsException e ) {
+            address = "" + opString.charAt(1);
+        }
 
         instructionRegister = Integer.parseInt(instruction);
         addressRegister     = Integer.parseInt(address);
@@ -96,7 +102,7 @@ public class LittleManComputer
     private void branch(boolean condition)
     {
         if (condition) {
-            //TODO
+            instructionRegister = addressRegister;
         }
     }
 

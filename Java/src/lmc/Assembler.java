@@ -1,5 +1,6 @@
 
 package lmc;
+import javax.annotation.processing.SupportedSourceVersion;
 import java.util.HashMap;
 
 /**
@@ -50,8 +51,17 @@ public class Assembler {
     private void loadInstruction(int memoryLocation, int opcode, String address)
     {
         String opcodeString = String.valueOf(opcode);
-        opcodeString += address;
+        int intAddress = 0;
+        try {
+            intAddress = Integer.parseInt(address);
+        }
+        catch (NumberFormatException e) {
+            intAddress = labels.get(address);
+            System.out.println("FOund label:" +  address);
+        }
+        opcodeString += String.valueOf(intAddress);
         memory[memoryLocation] = Integer.parseInt(opcodeString);
+
     }
 
     /**
@@ -83,19 +93,34 @@ public class Assembler {
                     }
                 }
                 else {
-                    if (opcodeString.equals("DAT")) {
-
+                    if (commandList[1].equals("DAT")) {
+                        if(commandList.length == 2) {
+                            memory[instructionPointer] = 0;
+                        }
+                        else {
+                            memory[instructionPointer] = Integer.parseInt(commandList[2]);
+                        }
                     }
-                    else { //is a label
-
+                    else { //is a label, so remove it
+                        int newLength = commandList.length - 1;
+                        String[] newCommands = new String[newLength];
+                        System.arraycopy(commandList,1, newCommands,0, newLength);
+                        parseLine(instructionPointer, newCommands);
                     }
                 }
         }
     }
 
-    private void findLabels(String[] commandList)
+    private void findLabels(String[] commandArray)
     {
-        
+        int instructionPointer = 0;
+        for (String line : commandArray) {
+            String[] commandLine = line.split("\\s+");
+            if (!commands.containsKey(commandLine[0])) {
+                labels.put(commandLine[0], instructionPointer);
+            }
+            instructionPointer++;
+        }
     }
 
     /**
@@ -104,10 +129,11 @@ public class Assembler {
      */
     public void assemble(String file)
     {
-        findLabels();
+
         String data = Util.readFile(file);
         String[] commandList = data.split("[\\r\\n]+");
 
+        findLabels(commandList);
         short instructionPointer = 0;
         for (String line : commandList) {
             String[] commands = line.split("\\s+");

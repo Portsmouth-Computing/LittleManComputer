@@ -1,6 +1,19 @@
 INP
-STA 99
+STA a
 INP
-ADD 99
+SUB one
+STA b
+begin   LDA sum
+ADD a
+STA sum
+LDA b
+SUB one
+STA b
+BRP begin
+LDA sum
 OUT
 HLT
+a       DAT 10
+b       DAT 0
+sum     DAT 0
+one     DAT 1
