@@ -76,7 +76,6 @@ public class LittleManComputer
     private void add()
     {
         accumulator += memory[addressRegister];
-        System.out.println("Added, " + accumulator);
     }
 
     private void subtract()
@@ -87,7 +86,6 @@ public class LittleManComputer
     private void store()
     {
         memory[addressRegister] = accumulator;
-        System.out.println("Stored value: " + accumulator);
     }
 
     private void load()
@@ -97,7 +95,6 @@ public class LittleManComputer
 
     private void branch(boolean condition)
     {
-        System.out.println("ACC: " + accumulator);
         if (condition) {
             programCounter = addressRegister;
         }
