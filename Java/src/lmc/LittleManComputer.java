@@ -30,7 +30,6 @@ public class LittleManComputer
         addressRegister = 0;
         accumulator = 0;
 
-
         Assembler assembler = new Assembler(memory);
         assembler.assemble(file);
     }
@@ -45,11 +44,7 @@ public class LittleManComputer
                 break;
             }
             executeInstruction();
-            System.out.printf("Instruction: %d, Address: %d\n", instructionRegister, addressRegister);
-        }
-
-        for (int i  = 0; i < 100; i++) {
-            System.out.printf("Memory %d: %d\n", i, memory[i]);
+            //System.out.printf("Instruction: %d, Address: %d\n", instructionRegister, addressRegister);
         }
     }
 
@@ -66,7 +61,6 @@ public class LittleManComputer
         if (instruction.equals("0")) {
             return false;
         }
-        System.out.println(opString);
         String address;
         try {
             address = "" + opString.charAt(1) + opString.charAt(2);
@@ -82,6 +76,7 @@ public class LittleManComputer
     private void add()
     {
         accumulator += memory[addressRegister];
+        System.out.println("Added, " + accumulator);
     }
 
     private void subtract()
@@ -92,6 +87,7 @@ public class LittleManComputer
     private void store()
     {
         memory[addressRegister] = accumulator;
+        System.out.println("Stored value: " + accumulator);
     }
 
     private void load()
@@ -101,8 +97,9 @@ public class LittleManComputer
 
     private void branch(boolean condition)
     {
+        System.out.println("ACC: " + accumulator);
         if (condition) {
-            instructionRegister = addressRegister;
+            programCounter = addressRegister;
         }
     }
 
@@ -147,7 +144,7 @@ public class LittleManComputer
                 branch(accumulator == 0);
                 break;
             case 8:
-                branch(accumulator > 0);
+                branch(accumulator >= 0);
                 break;
             case 9:
                 switch (addressRegister) {

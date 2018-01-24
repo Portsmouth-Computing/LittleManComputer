@@ -57,7 +57,6 @@ public class Assembler {
         }
         catch (NumberFormatException e) {
             intAddress = labels.get(address);
-            System.out.println("FOund label:" +  address);
         }
         opcodeString += String.valueOf(intAddress);
         memory[memoryLocation] = Integer.parseInt(opcodeString);
