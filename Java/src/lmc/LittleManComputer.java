@@ -36,6 +36,7 @@ public class LittleManComputer
             if (!fetchNextInstruction()) {
                 break;
             }
+            executeInstruction();
             System.out.printf("Instruction: %d, Address: %d\n", instructionRegister, addressRegister);
         }
     }
@@ -58,5 +59,69 @@ public class LittleManComputer
         instructionRegister = Integer.parseInt(instruction);
         addressRegister     = Integer.parseInt(address);
         return true;
+    }
+
+    private void add()
+    {
+
+    }
+
+    private void subtract()
+    {
+
+    }
+
+    private void store()
+    {
+
+    }
+
+    private void load()
+    {
+
+    }
+
+    private void branch(boolean condition)
+    {
+
+    }
+
+    private void input()
+    {
+
+    }
+
+    private  void output()
+    {
+
+    }
+
+
+    /**
+     * Executes the instruction at the
+     * @return whether or not it is the end of the instructions
+     */
+    private void executeInstruction()
+    {
+        switch (instructionRegister) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+        }
     }
 }

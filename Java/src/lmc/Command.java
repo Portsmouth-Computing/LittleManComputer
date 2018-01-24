@@ -18,5 +18,5 @@ public enum Command
     BranchIfPos,
     Input,
     Output,
-    Data
+    Data;
 }
