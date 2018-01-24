@@ -10,25 +10,18 @@ import java.util.logging.ConsoleHandler;
  * @version     1.0
  * @since       1.0
  */
-public class LittleManComputer
+public final class LittleManComputer
 {
     int[] memory;
+    Registers register = new Registers();
 
-    int programCounter;
-    int instructionRegister;
-    int addressRegister;
-    int accumulator;
-
-    Scanner consoleInput;
+    final Scanner consoleInput;
 
     public LittleManComputer(String file)
     {
+        register        = new Registers();
         consoleInput    = new Scanner(System.in);
         memory          = new int[100]; //LMC has 100 memory locations
-        programCounter = 0;
-        instructionRegister = -1;
-        addressRegister = 0;
-        accumulator = 0;
 
         Assembler assembler = new Assembler(memory);
         assembler.assemble(file);
@@ -39,7 +32,7 @@ public class LittleManComputer
      */
     public void run()
     {
-        while(instructionRegister != 0) {
+        while(register.instruction != 0) {
             if (!fetchNextInstruction()) {
                 break;
             }
@@ -54,7 +47,7 @@ public class LittleManComputer
      */
     private boolean fetchNextInstruction()
     {
-        int opcode = memory[programCounter++];
+        int opcode = memory[register.programCounter++];
         String opString = String.valueOf(opcode);
 
         String instruction = "" + opString.charAt(0);
@@ -68,47 +61,47 @@ public class LittleManComputer
             address = "" + opString.charAt(1);
         }
 
-        instructionRegister = Integer.parseInt(instruction);
-        addressRegister     = Integer.parseInt(address);
+        register.instruction = Integer.parseInt(instruction);
+        register.address     = Integer.parseInt(address);
         return true;
     }
 
     private void add()
     {
-        accumulator += memory[addressRegister];
+        register.accumulator += memory[register.address];
     }
 
     private void subtract()
     {
-        accumulator -= memory[addressRegister];
+        register.accumulator -= memory[register.address];
     }
 
     private void store()
     {
-        memory[addressRegister] = accumulator;
+        memory[register.address] = register.accumulator;
     }
 
     private void load()
     {
-        accumulator = memory[addressRegister];
+        register.accumulator = memory[register.address];
     }
 
     private void branch(boolean condition)
     {
         if (condition) {
-            programCounter = addressRegister;
+            register.programCounter = register.address;
         }
     }
 
     private void input()
     {
         System.out.print("Please enter a value: ");
-        accumulator = consoleInput.nextInt();
+        register.accumulator = consoleInput.nextInt();
     }
 
     private  void output()
     {
-        System.out.println("Accumulator: " + accumulator);
+        System.out.println("Accumulator: " + register.accumulator);
     }
 
 
@@ -118,7 +111,7 @@ public class LittleManComputer
      */
     private void executeInstruction()
     {
-        switch (instructionRegister) {
+        switch (register.instruction) {
             case 1:
                 add();
                 break;
@@ -138,13 +131,13 @@ public class LittleManComputer
                 branch(true);
                 break;
             case 7:
-                branch(accumulator == 0);
+                branch(register.accumulator == 0);
                 break;
             case 8:
-                branch(accumulator >= 0);
+                branch(register.accumulator >= 0);
                 break;
             case 9:
-                switch (addressRegister) {
+                switch (register.address) {
                     case 1:
                         input();
                         break;
